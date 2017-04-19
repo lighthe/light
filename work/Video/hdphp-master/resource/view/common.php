@@ -11,11 +11,12 @@
         //框架目录
         'base': 'node_modules/hdjs',
         //上传文件后台地址
-        'uploader': '?s=home/component/uploader',
+        'uploader': '?s=system/component/uploader',
         //获取文件列表的后台地址
-        'filesLists': '?s=home/component/filesLists',
+        'filesLists': '?s=system/component/filesLists',
     };
 </script>
+
 
 <script src="node_modules/hdjs/app/util.js"></script>
 <script src="node_modules/hdjs/require.js"></script>

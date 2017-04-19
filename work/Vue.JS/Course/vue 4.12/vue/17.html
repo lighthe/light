@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/vue/2.2.1/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <hd :goods="goods" @add="add"></hd>
+    <cart :cart="cart"></cart>
+</div>
+<template id="hd">
+    <div>
+        <li v-for="v in goods">
+            {{v.title}} <button @click="buy()">购买</button>
+        </li>
+    </div>
+</template>
+<template id="cart">
+<div>
+    <hr>
+    购买数量:{{cart.total}}
+</div>
+</template>
+<script>
+    Vue.component('hd',{
+        template:'#hd',
+        props:['goods'],
+        methods:{
+            buy:function(id){
+//                alert(3);
+                this.$emit('add');
+            }
+        },
+        data:function(){
+            return {
+            }
+        }
+    });
+    Vue.component('cart',{
+        template:'#cart',
+        props:['cart'],
+        data:function(){
+            return {
+            }
+        }
+    });
+    new Vue({
+        el:'#app',
+        methods:{
+            add:function(){
+                this.cart.total++;
+            }
+        },
+        mounted:function(){
+            
+            This=this;
+            $.get('17.php',function(response){
+                if(response.valid==1){
+                    This.goods = response.data;
+                }
+            },'json');
+//            this.goods=[
+//                {id:1,title:'iphone 6s'},
+//                {id:2,title:'iMac '}
+//            ]
+        },
+        data:{
+            goods:[
+
+            ],
+            cart:{
+                total:0
+            }
+        }
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

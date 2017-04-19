@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <hd-user></hd-user>
+    <input type="text" v-model="n1"> +
+    <input type="text" v-model="n2"> =
+</div>
+<script>
+    Vue.component('hdUser',{
+        template:'<div>-ok...</div>',
+
+    })
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>
+</body>
+</html>

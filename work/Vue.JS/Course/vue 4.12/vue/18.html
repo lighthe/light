@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/vue/2.2.1/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<style>
+    a.router-link-active {
+        background: red;
+        color: #fff;
+    }
+</style>
+<div id="app">
+    <router-link to="/hdcms/a/b/c" exact>hdphp</router-link>
+    <router-link to="/hdcms" exact>hdcms</router-link>
+    <router-view></router-view>
+</div>
+<script>
+//    function a({x}){
+//        alert(x);
+//    }
+//    a({x:33});
+    hdphp= {template:'<h1>hdphp</h1>'}
+    hdcms= {template:'<h1>hdcms</h1>'}
+    routes=[
+        {path:'/hdcms/a/b/c',component:hdphp},
+        {path:'/hdcms',component:hdcms},
+    ];
+    router =new VueRouter({routes});
+    new Vue({
+        el:'#app',
+        router
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

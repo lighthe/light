@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+{{id}}
+    <hh></hh>
+    <hh></hh>
+    <hh></hh>
+</div>
+</body>
+<script>
+
+    //为什么声明主键要在呢我Vue前面
+    Vue.component('hh',{
+        template:'<h1>{{id}}</h1>',
+        data:function () {
+            return {
+                id:11
+            }
+        }
+    })
+
+    new Vue({
+        el:'#app',
+        data:{
+            id:100
+        }
+    })
+
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <input type="checkbox" v-model="state"> 请选择
+    <button type="button"  :disabled="!state">保存</button>
+
+</div>
+
+</body>
+<script>
+    new Vue({
+
+        el:'#app',
+        data:{
+            state:false
+        }
+    })
+
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<style>
+    .del{color:#ddd}
+</style>
+<div id="app">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Panel title</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" v-for="(v,k) in news">
+                    <span :class="{del:v.isDel}">{{v.title}}</span>
+                    <button class="btn btn-success btn-sm" @click="del(v)">删除</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            news:[
+                {id:1,title:'angular.js 2.0 发布',isDel:false},
+                {id:1,title:'laravel php framework',isDel:false},
+            ]
+        },
+        methods:{
+            del(item){
+                item.isDel =true;
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/vue/2.2.1/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <hd></hd>
+        <hd></hd>
+    </div>
+    <template id="hd">
+        <div>sina.com</div>
+    </template>
+    <script>
+        Vue.component('hd',{
+          template:'#hd'
+        });
+        new Vue({
+            el:'#app',
+        })
+    </script>
+</body>
+</html>

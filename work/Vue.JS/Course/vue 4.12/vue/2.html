@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1 v-show="show">hello</h1>
+    <li v-for="v in todos">{{v.title}}</li>
+</div>
+<script>
+    new Vue({
+
+        el:'#app',
+        data:{
+            show:true,
+            todos:[
+                {id:1,title:'sina'},
+                {id:2,title:'baidu'},
+            ]
+        }
+    })
+</script>
+</body>
+</html>

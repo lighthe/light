@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <h1 @click="sel($event)">HD</h1>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+        },
+        methods:{
+            sel:function(event){
+            console.log(event);
+            }
+        }
+    })
+</script>
+</body>
+</html>

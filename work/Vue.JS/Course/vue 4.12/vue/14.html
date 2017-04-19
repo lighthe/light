@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <hd></hd>
+    <hd></hd>
+    <hd></hd>
+    <hd></hd>
+</div>
+<script>
+    Vue.component('hd',{
+        template:'<div><input type="text" v-model="id"> {{id}}</div>',
+        data:function(){
+            return {
+                id:1
+            }
+        }
+    })
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>
+</body>
+</html>

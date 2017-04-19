@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="checkbox" v-model="state">接收协议
+    <button :disabled="!state">注册</button>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            state:false
+        }
+    })
+</script>
+</body>
+</html>

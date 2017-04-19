@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/vue/2.2.1/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--数据-->
+        {{good}}
+</div>
+
+<template id="hh">
+
+<div>
+    <li v-for=" v in good">
+                            <!--点击触发buy函数-->
+        {{v.title}}  <button type="button" @click="buy()"></button>
+        <div></div>
+    </li>
+</div>
+
+</template>
+
+<script>
+    //hh.主键
+    Vue.component('hh',{
+        template:'#hh',
+        //接受父亲的good数据
+        props:['good'],
+        methods:{
+            buy:function () {
+                    return this.mon++;
+            }
+        },
+        //......我想把这里修改到怎么做
+        data:{
+          mon:0,
+        }
+    })
+    //cc.主键
+    Vue.component('cc',{
+        template:'#hh'
+    })
+
+    //
+    new Vue({
+        el:'#app',
+        methods:{
+            add:function () {
+
+            }
+        },
+        //钩子
+        mounted:function () {
+            //钩子的数据
+            this.good=[
+                {id:1,title:'iphone 6s'},
+                {id:2,title:'iMac '}
+            ]
+        },
+        //数据
+        data:{
+            good:[
+            //.钩子所发送的数据 到这里来
+            ],
+
+            cart:{
+                total:0,
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://cdn.bootcss.com/vue/2.2.1/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <hd :name="title"></hd>
+</div>
+<script>
+    Vue.component('hd',{
+        template:'<div>{{name}}-{{times}}</div>',
+        props:{
+            name:{
+                type:Number
+            },
+            times:{
+                default:10
+            }
+
+        },
+        data:function(){
+            return {
+//                name:'abc'
+            }
+        }
+    });
+    new Vue({
+        el:'#app',
+        data:{
+            title:'后盾网'
+        }
+    })
+</script>
+</body>
+</html>

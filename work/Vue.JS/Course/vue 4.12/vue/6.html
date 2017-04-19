@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<style>
+    .size{font-size: 100px;}
+    .red{color:red}
+</style>
+<div id="app">
+    <div v-bind:class="{red:state}" class="size">sina.com</div>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+           state:true
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{name}}
+        <h1 v-bind:name="name">sin</h1>
+        <input type="text" v-model="name" >
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                name:'baidu'
+            }
+        })
+    </script>
+</body>
+</html>

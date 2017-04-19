@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    帐号:<input type="text" v-model="n1"><br/>
+    密码:<input type="text" v-model="n2">
+    <button :disabled="bar.status">{{bar.title}}</button>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        computed:{
+            bar(){
+                var state = this.n1=='' || this.n2=='';
+                if(state){
+                    return {status:true,title:'请输入所有表单'};
+                }else{
+                    return {status:false,title:'保存'};
+                }
+            }
+        },
+        data:{
+            n1:'',
+            n2:''
+        }
+    })
+</script>
+</body>
+</html>

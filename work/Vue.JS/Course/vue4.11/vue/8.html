@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <input type="radio" v-model="type" value="local"> 本地
+    <input type="radio" v-model="type" value="oss"> OSS
+    <div v-if="type=='local'">
+        本地
+    </div>
+    <div v-if="type=='oss'">
+        oss
+    </div>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            type:'local'
+        }
+    })
+</script>
+</body>
+</html>

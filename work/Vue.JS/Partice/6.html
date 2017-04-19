@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <hh></hh>
+</div>
+<template id="ff">
+    <div>31212121
+    </div>
+    <div>31212121
+    </div>
+</template>
+</body>
+<script>
+
+    Vue.component('hh',{
+        template:'#ff'
+    })
+
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+
+    })
+
+</script>
+</html>

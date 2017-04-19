@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2ae0e62d-8e4c-44cd-a097-37513a81a15a" name="shop" url="http://c79_hehui.kuaipinwang.com">
+        <fileTransfer host="c79_hehui.kuaipinwang.com" port="21" rootFolder="/wwwroot/tpshop">
+          <advancedOptions>
+            <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

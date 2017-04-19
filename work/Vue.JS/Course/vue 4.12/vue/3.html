@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+</head>
+<body>
+<form action="" method="post" v-on:submit.prevent="post" id="app">
+    <input type="submit">
+    <input type="text" v-model="name">
+</form>
+<script>
+    new Vue({
+        el:'#app',
+        methods:{
+            post:function(){
+                alert(3);
+            }
+        },
+        data:{
+            name:'sina'
+        }
+    })
+</script>
+</body>
+</html>

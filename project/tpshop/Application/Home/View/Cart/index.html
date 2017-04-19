@@ -1,0 +1,439 @@
+<layout name="../../../Resource/home/home" />
+
+</div>
+
+<!--中间开始-->
+<div id="content">
+    <form action="" method="post">
+
+        <div class="car main">
+            <div class="carshop">
+                <div class="cartitle">
+                    <div class="carcheck">
+                        <div class="checkbox">
+
+                            <if condition="$fromData['goods']" >
+                            <span class="check  checkon" id="allcheck"></span>
+                                <elseif condition="(count($_SESSION['cart']['goods']))" />
+                                <span class="check checkon" id="allcheck"></span>
+                                <else />
+                                <span class="check " id="allcheck"></span>
+                            </if>
+                        </div>
+                        全选</div>
+                    <div class="carname">商品名称</div>
+                    <div class="carmoney">单价</div>
+                    <div class="carnum">数量</div>
+                    <div class="carcount">小计</div>
+                    <div class="carhandle">操作</div>
+                </div>
+
+                <if condition="$fromData['goods']">
+
+                    <foreach name="fromData['goods']" item="vo" key="ox">
+                        <!--要删的主键-->
+                        <div class="shopcontent"  v="{$vo['options']['caid']}">
+                            <div class="shopcheck"><div class="checkbox">
+                                <span class="check checkon"></span>
+                                <input type="checkbox" name='checkbox' class="checkhide"/>
+                            </div></div>
+
+                            <div class="shopname">
+                                <div class="carimg">
+                                    <a href=""><img src="__ROOT__/{$vo['options']['pic']}"/></a>
+                                </div>
+                                <p>
+                                    <a href="#">{$vo['name']}</a>
+                                    <foreach name="vo['options']['options']"  key="so" item="xo">
+                                        <div><span style="margin-left: 10px;">{$so}： {$xo}</span>
+                                        </div>
+                                    </foreach>
+                                </p>
+
+                            </div>
+                            <div class="shopmoney">{$vo['price']}</div>
+                            <div class="shopnum">
+                                <a href="javascript:;" class="num_l">-</a>
+                                <input type="text" value="{$vo['num']}" />
+                                <a href="javascript:;" class="num_r">+</a>
+                            </div>
+                            <div class="shopcount"> {$vo['total']}</div>
+                            <input type="hidden" class="hh_max" value="{$vo['options']['inventory']}">
+                            <div class="shophandle"><span>x</span></div>
+                            <input  class="hh_id" type="hidden" value="{$vo['options']['caid']}">
+                        </div>
+                    </foreach>
+
+                    <elseif condition="(count($_SESSION['cart']['goods']))"/>
+
+                    <foreach name="cartData['goods']" item="vo" key="ox">
+
+                        <div class="shopcontent" v="{$ox}">
+                            <div class="shopcheck"><div class="checkbox">
+                                <span class="check checkon"></span>
+                                <input type="checkbox" name='checkbox' class="checkhide"/>
+                            </div></div>
+
+                            <div class="shopname">
+                                <div class="carimg">
+                                    <a href=""><img src="__ROOT__/{$vo['options']['pic']}"/></a>
+                                </div>
+                                <p>
+                                    <a href="#">{$vo['name']}</a>
+                                    <foreach name="vo['options']['options']"  key="so" item="xo">
+                                        <div>
+                                            <span style="margin-left: 10px;">{$so}： {$xo}</span>
+                                        </div>
+                                    </foreach>
+                                </p>
+
+                            </div>
+                            <div class="shopmoney">{$vo['price']}</div>
+                            <div class="shopnum">
+                                <a href="javascript:;" class="num_l">-</a>
+                                <input type="text" value="{$vo['num']}" />
+                                <a href="javascript:;" class="num_r">+</a>
+                            </div>
+                            <div class="shopcount"> {$vo['total']}</div>
+                            <input type="hidden" class="hh_max" value="{$vo['options']['inventory']}">
+                            <div class="shophandle"><span>x</span></div>
+                            <input  class="hh_id" type="hidden" value="{$ox}">
+                        </div>
+                    </foreach>
+
+                    <else />
+
+                </if>
+
+            </div>
+
+
+            <!--session判断是否购物车为空提示-->
+            <if  condition="$fromData['goods']">
+
+                 <div class="jiesuan">
+                        <div class="jixu"><a href="">继续购物</a></div>
+                        <div class="gongji">共计<span><?php echo $fromData['total_rows']?></span>件商品</div>
+                        <div class="heji">合计<span><?php echo $fromData['total']?></span> 元</div>
+                        <div class="gou"><a href="javascript:;"><input type="button" value="去结算"/></a></div>
+                    </div>
+        </div>
+
+        <elseif condition="(count($_SESSION['cart']['goods']))"/>
+
+                    <div class="jiesuan">
+                        <div class="jixu"><a href="">继续购物</a></div>
+                        <div class="gongji">共计<span><?php echo $cartData['total_rows']?></span>件商品</div>
+                        <div class="heji">合计<span><?php echo $cartData['total']?></span> 元</div>
+                        <div class="gou"><a href="{:u('home/login/login')}"><input type="button" value="去结算"/></a></div>
+                    </div>
+        </div>
+    <else />
+
+
+    <div class="cartEmptyx" style="text-align: center;margin-top: 50px;">
+         <div class="wrapper">
+             <img src="__ROOT__/Resource/images/none.png" >
+             <span style="color: #363636;">您的购物车居然是空的</span>
+                <a href="{:u('home/index/index')}" style="color: red;" class="goshopping">去逛逛</a></div>
+    </div>
+
+
+</if>
+    </form>
+
+<script>
+    $(function () {
+    function setcount() {
+
+    //获取class .checkon的集合 不包含
+    len =$('.checkon:not("#allcheck")');
+    var n =0;
+    var w =0;
+
+    //遍历所有class有.checkon的值
+    $.each(len,function (k,v) {
+    //如果抓去到为空的话
+    if (isNaN(parseInt($(this).parents('.shopcontent').find('.shopcount').html()))){
+    //将n变为0
+    n=n+0;
+    }else {
+    //抓取总价
+    n += parseInt($(this).parents('.shopcontent').find('.shopcount').html());
+    //抓取数量
+    w  +=   parseInt($(this).parents('.shopcontent').find('.shopnum').find('input ').val());
+
+    }
+
+    })
+    return {n:n,l:w};
+    }
+
+    $('.car .carshop .shopcontent .shopnum a.num_r').click(function () {
+    //商品单价
+    var danjia=parseInt($(this).closest('.shopnum').prev().text());
+    //商品数量
+    var num =   parseInt($(this).prev().val());
+    //获取库存
+    var max =  parseInt($(this).parents('.shopcontent').find('.hh_max').val());
+
+
+    //获取需要修改的标注
+    var goods = $(this).parents('.shopcontent').find('.hh_id').val();
+    //如果大于库存 结束
+    if( num >= max ){
+    layer.msg('没有库存啦！', function(){
+    //关闭后的操作
+    });
+    $(this).prev().val(max);
+    return false;
+    };
+
+    if(num < max){
+    //商品总加
+    num++;
+    $(this).prev().val(num);
+    //商品小计
+    $(this).parents('.shopnum').next().html(num*danjia);
+    //商品数量
+    $('.gongji span').text(setcount().l);
+    $('.heji span').text(setcount().n);
+    //所有商品总数
+    var all = parseInt($('.gongji').find('span').html());
+    //所有商品总价（旧）
+    var mount= parseInt($('.heji').find('span').html());
+    }
+
+    //获取小计
+    var xiaoji =  danjia * num;
+    //发送ajax
+    $.post("{:u('cartSubAjax')}",{num:num,goods:goods,xiaoji:xiaoji,all:all,mount:mount},function (res) {
+    },'json');
+
+    //车栏里的数量修改
+    $('.cart-size').html(all);
+    //                        //将购物车栏里的数量修改
+    $('.hh_goodTotal').html(all);
+    //                        //修改购物车里是价格总数
+    $('.hh_goodMoney').html(mount);
+
+    $('.hh_mid').each(function () {
+
+    //获取属性v的值
+    var  attr =  $(this).attr('x');
+    if(attr==goods){
+    $(this).find('.hh_goods_num').html(num);
+    }
+    })
+    dis();
+    })
+
+
+    $('.car .carshop .shopcontent .shopnum a.num_l').click(function(){
+
+    //获取单价
+    var danjia=parseInt($(this).closest('.shopnum').prev().text());
+    //减小的值
+    var num = parseInt($(this).next().val());
+    //要修改的id值
+    var goods = $(this).parents('.shopcontent').find('.hh_id').val();
+    //所有商品总数
+    var all= parseInt($('.gongji').find('span').html());
+    //所有商品总价
+    var mount = parseInt($('.heji').find('span').html());
+
+    if(num<=1){
+    layer.msg('小于1咋买啊！', function(){
+    //关闭后的操作
+    });
+    //如果num值少或等与1 将值复为1
+    $(this).next().val(1);
+    }
+
+
+    //如果大于1
+    if(num>1){
+    //每按一次num的数减1
+    num--;
+    all--;
+    //将值重新复值
+    $(this).next().val(num);
+    //计算shopnum前的div里的值和shopnum后的值 然后重新赋值
+    $(this).closest('.shopnum').next().text(num*danjia);
+    //在分配价格总和
+    $('.heji span').text(setcount().n);
+    $('.gongji span').text(setcount().l);
+    //因为按点击事件多触发一个减号
+    mount = mount - danjia;
+    //..........................................
+    }
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //获取单价
+    var xiaoji = danjia * num;
+    //可以用的总数
+    // alert(mount);
+    //发送ajax
+    $.post("{:u('cartSubAjax')}",{num:num,goods:goods,xiaoji:xiaoji,mount:mount,all:all},function (res) {
+    },'json');
+
+    //                        //车栏里的数量修改
+    $('.cart-size').html(all);
+    //                        //将购物车栏里的数量修改
+    $('.hh_goodTotal').html(all);
+    //                        //修改购物车里是价格总数
+    $('.hh_goodMoney').html(mount);
+
+    $('.hh_mid').each(function () {
+    //获取属性v的值
+    var  attr =  $(this).attr('x');
+    if(attr==goods){
+    $(this).find('.hh_goods_num').html(num);
+    }
+    })
+    dis();
+    });
+
+    //删除商品
+    $('.shophandle span').click(function(){
+
+    //获取要删除的货号
+    var order =$(this).parents('.shopcontent').find('.hh_id').val();
+
+    $.post("{:u('cartDelAjax')}",{order:order},function (res) {
+    //小logo
+    var attr='';
+    var str ='';
+    if(res.valid==11){
+
+    str +='<div class="hh_text"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color: #36aa3f;"></i>';
+    str +='<span style="margin-left: 10px;">购物车中还没有商品，赶紧选购吧！</span></div>';
+
+    $('.cart-tips').html(str);
+
+
+    //小logo
+    attr +='<div class="cartEmptyx" style="text-align: center;margin-top: 50px;">';
+    attr +='<div class="wrapper"><img src="__ROOT__/Resource/images/none.png" >';
+        attr +='<span style="color: #363636;">您的购物车居然是空的</span>';
+        attr += '<a href="{:u("home/index/index")}" style="color: red;" class="goshopping">去逛逛</a></div></div>';
+    //添加小logo
+    $('.car').html(attr);
+    }
+    },'json');
+    $(this).closest('.shopcontent').remove();
+    $('.heji span').text(setcount().n);
+    $('.gongji span').text(setcount().l);
+    //获取底下共计的数量
+    var total= $('.gongji').find('span').html();
+    //车栏里的数量修改
+    $('.cart-size').html(total);
+    //将购物车栏里的数量修改
+    $('.hh_goodTotal').html(total);
+    //修改购物车里是价格总数
+    var count=  $('.heji').find('span').html();
+    $('.hh_goodMoney').html(count);
+
+    $('.hh_mid').each(function () {
+    //获取属性v的值
+    var  attr=  $(this).attr('x');
+    if(attr==order){
+    $(this).remove();
+    }
+    })
+    dis()
+    });
+    //当把商品删除完 disatbled结算按钮
+    function dis(){
+    if($('.gongji span').text()<=0){
+    $('.gou input').css({'background':'#ccc'}).attr('disabled','disabled');
+    }else {
+    $('.gou input').css({'background':'#36aa3f'}).removeAttr('disabled');
+    }
+
+    }
+
+    //点击选中单个
+    t=false;
+    $('.checkbox .check').click(function(){
+
+    if(t){
+    //点击事件当前加class
+    $(this).addClass('checkon');
+
+    $('.gongji span').text(setcount().l);
+    $('.heji span').text(setcount().n);
+    dis();
+    t=false;
+    }else{
+    //点击事件当前加class
+    $(this).removeClass('checkon');
+    $('.gongji span').text(setcount().l);
+    $('.heji span').text(setcount().n);
+    dis();
+    t=true;
+    }
+
+    });
+    //点击选中所有
+    f=false;
+    $('#allcheck').click(function(){
+    if(f){
+    $('.checkbox .check').addClass('checkon');
+    $('.gongji span').text(setcount().l);
+    $('.heji span').text(setcount().n);
+    dis();
+    f=false;
+    t=false;
+
+    }else{
+    $('.checkbox .check').removeClass('checkon');
+    $('.gongji span').text(setcount().l);
+    $('.heji span').text(setcount().n);
+    dis();
+    f=true;
+    t=true;
+    }
+
+    });
+
+    //存货处理
+    $('.shopnum input').change(function () {
+    //抓取input里的数量
+    var num = parseInt($(this).val());
+    var max = parseInt($(this).parents('.shopcontent').find('.hh_max').val());
+
+    if(num >= max){
+    layer.msg('没有货啦！亲', function(){
+    //关闭后的操作
+    });
+    $(this).val(max);
+    return false;
+    }
+    })
+
+
+    $('.gou').click(function () {
+
+    var a= '';
+    //获取class .checkon的集合 不包含
+    var id =$('.checkon:not("#allcheck")');
+
+    $.each(id,function () {
+
+    a += $(this).parents('.shopcontent').attr('v')+',';
+    })
+
+
+    $.post("{:u('home/pay/listAjax')}",{id:a},function (res) {
+
+    layer.msg(res.info, {
+    icon: 16
+    ,shade: 0.01
+    });
+
+    setTimeout(function(){location.href=res.url}, 2000);
+    },'json');
+    });
+    })
+
+</script>

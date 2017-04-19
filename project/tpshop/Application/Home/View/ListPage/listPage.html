@@ -1,0 +1,95 @@
+<layout name="../../../Resource/home/home" />
+
+
+
+
+</div>
+<!--头部结束-->
+<style>
+    .listoption a:hover{
+        color: #23AC38;
+    }
+</style>
+<style>
+    .list .postion dl dd a.red{
+        color:red;
+    }
+</style>
+<!--中间开始-->
+<div id="content">
+    <div class="list">
+        <div class="main">
+            <h4 class="listoption" ><a href="{:u('home/index/index')}">首页</a><foreach name="father" item="vo">&gt;<a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">{$vo['cname']}</a></foreach></h4>
+            <div class="postion">
+
+                <foreach name="finalTemp" item="vo" key="k">
+
+                    <?php
+                        $temp = $param;
+
+                        $temp[$k]=0;
+                    ?>
+                <dl>
+                    <dt>{$vo['name']}:</dt>
+
+                    <dd>
+                        <a <if condition="$param[$k]==0">style="color: red;"</if>  href="{:u('home/listPage/listPage',['cid'=>$_GET['cid'],'param'=>implode('-',$temp)])}" >不限</a>
+                        <foreach name="vo['value']" item="xo">
+                            <!--//将每个数组里的存入param-->
+                                <?php   $temp[$k]=$xo['gtid'] ?>
+                        <a  <if condition="$param[$k]==$xo['gtid']">style="color: red;"</if>  href="{:u('home/listPage/listPage',['cid'=>$_GET['cid'],'param'=>implode('-',$temp)])}">{$xo['gtvalue']}</a>
+                        </foreach>
+                    </dd>
+
+                </dl>
+                </foreach>
+
+
+
+
+                    <dl>
+                        <dt>排序:</dt>
+                        <dd>
+                            <a href="">默认</a>
+                            <a href="">价格</a>
+                        </dd>
+
+                    </dl>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="listcontent">
+        <div class="main">
+            <ul>
+
+
+                <foreach name="listPageData" item="vo">
+                <li>
+                    <div class="listdesc">
+                        <dl class="desc">
+                            <a href="{:u('home/content/contents',['gid'=>$vo['gid']])}" class="pro_list">
+                                <dt class="pic"><img class="lazy" src="__ROOT__/{$vo['pic']}"  alt="360手机f4标准版移动4G魔力白"></dt>
+                                <dd class="cont">
+                                    <span class="title">{$vo['gname']}</span>
+                                    <span class="price">{$vo['shopprice']}元</span>
+                                </dd>
+                            </a>
+                            <dd class="btns" >
+
+                                <a href="{:u('home/content/contents',['gid'=>$vo['gid']])}" class="add-cart" ><i></i><em>加入购物车</em></a>
+                            </dd>
+                        </dl>
+                    </div>
+
+                </li>
+                </foreach>
+
+
+
+            </ul>
+        </div>
+
+    </div>
+</div>

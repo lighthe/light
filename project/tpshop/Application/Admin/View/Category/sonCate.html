@@ -1,0 +1,108 @@
+<layout name="../../../Resource/master" />
+
+
+<div class="col-lg-12" >
+
+    <div class="panel panel-default">
+        <div class="panel-heading">添加子集分类</div>
+        <div class="panel-body">
+            <form class="form-horizontal" id="form" method="post">
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="col-sm-5"></div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">分类名称</label>
+
+                    <div class="col-sm-5">
+
+                        <input type="text" name="cname" value="{$CateData['cname']}" class="form-control" placeholder="">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">所属类型</label>
+
+                    <div class="col-sm-2">
+
+                        <select name="tid" class="form-control input-sm">
+
+                            <option value="0">请选择</option>
+                            <volist name="typeData" id="vo">
+
+                                <option value="{$vo['tid']}" <?php  if($CateData['tid']==$vo['tid']){ ?> selected="selected" <?php }?> >{$vo['tname']}</option>
+
+                            </volist>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">分类排序</label>
+
+                    <div class="col-sm-5">
+
+                        <input type="number" name="sort"  value="{$CateData['sort']}"  class="form-control" placeholder="请填写1到65535的排序数字">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group"><label class="col-sm-2 control-label">是否显示</label>
+
+                    <div class="col-sm-10">
+
+                        <label>
+
+                            是：	<input type="radio" value="0" name="show"   <?php  if($CateData['show']==0){ ?> checked="checked" <?php  }?> ><i></i>
+
+                        </label>
+
+                        <label>
+
+                            否: <input type="radio" value="1" name="show" <?php  if($CateData['show']==1){ ?> checked="checked" <?php  }?>><i></i>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="col-sm-5"></div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <input type="hidden" name="pid" value="<?php echo $_GET['cid'] ?>">
+
+                        <button class="btn btn-primary" id="btn" type="submit">确定添加</button>
+
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

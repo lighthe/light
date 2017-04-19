@@ -1,0 +1,71 @@
+<layout name="../../../Resource/master" />
+
+
+
+<div class=" col-lg-12">
+
+
+
+
+<div class="panel panel-default" style="">
+
+    <div class="panel-heading">属性列表</div>
+    <div class="panel-heading">
+        <div class="btn-group">
+            <a  href="{:u('admin/type/addtype',['tid'=>I('get.tid')])}"  type="button" class="btn btn-primary">添加属性</a>
+        </div>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>属性ID</th>
+                <th>属性名称</th>
+                <th>属性类别</th>
+                <th>属性值</th>
+                <th>操作</th>
+
+            </tr>
+
+            </thead>
+            <tbody>
+
+            <volist name="oldData" id="vo">
+            <tr>
+                <td>{$vo['taid']}</td>
+                <td>{$vo['taname']}</td>
+                <if condition="$vo['class']">
+                  <td>规格</td>
+                    <else />
+                    <td>属性</td>
+                </if>
+                <td>{$vo['tavalue']}</td>
+                <td>
+
+                <td>
+                        <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle" aria-expanded="false"><span></span>操作 <span class="caret"></span></button>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+
+                            <li><a href="{:u('admin/type/addtype',['taid'=>$vo['taid'],'tid'=>I('get.tid')])}">编辑</a></li>
+
+                            <li class="divider"></li>
+
+                            <li><a href="{:u('admin/type/attrDel',['taid'=>$vo['taid'],'tid'=>I('get.tid')])}">删除</a></li>
+
+                        </ul>
+                </td>
+                </td>
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+
+</div>

@@ -1,0 +1,319 @@
+<layout name="../../../Resource/home/home" />
+
+</div>
+
+<script src="__PUBLIC__/Home/js/area.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        area.init('area');
+        //选中效果
+        area.selected('','','');
+    })
+</script>
+<script>
+
+    var editAjax ="{:u('editAjax')}";
+
+</script>
+
+<!--中间开始-->
+<div class="body-center">
+    <div class="center-content">
+        <!--头部开始-->
+        <div class="content-header">
+            <p>收获地址  <span>温馨提示：为了保证您的权益，防止黄牛倒卖，订单进入正在配货状态将不能修改收货地址和发票信息！</span></p>
+        </div>
+        <!--头部结束-->
+
+        <!--地址选择开始-->
+        <div class="content-address">
+            <div class="appnd">
+            <foreach name="adderData" item="v" key="k" >
+                <div class="consignee-item " ader="{$v['ader']}">
+                    <!--pitchOn-->
+                    <span class="radio-img "></span>
+                    <label for="adress1" class="radio">
+                        <input type="radio" name="adress" id="adress1"  class="radio-select" /><span class="e-name">{$v['clientname']}</span>，<span class="city">{$v['place']}</span><span class="city-particular"> {$v['address']}</span>，<span class="codeNumber">{$v['cellphone']}</span>
+                    </label>
+                    <span class="compile"><a class="copyreader" href="javascript:;">编辑</a></span>
+                </div>
+            </foreach>
+            </div>
+
+
+            <!--添加新地址-->
+            <div class="consignee-item new-ress">
+                <span class="radio-img"></span>
+                <label for="adress3" class="radio"><input type="radio" name="adress" id="adress3" class="radio-select"  value=""/>使用新地址</label>
+            </div>
+            <!--添加地址框-->
+            <div class="add-address new">
+                <form action="" method="post"  id="form" onsubmit="return addform(this)">
+                    <div class="s-name">
+                        <h3 class="style"><b>*</b>收货人姓名</h3>
+                        <input type="text" class="public" name="clientname" id="name" placeholder="收货人姓名" value="" />
+                    </div>
+                    <div class="address-s">
+                        <h3 class="style"><b>*</b>地址</h3>
+
+                        <!--城市联动-->
+                        <select name="area1" id="area1"></select>
+                        <select name="area2" id="area2"></select>
+                        <select name="area3" id="area3"></select>
+                        <!--<input type="text" name="name" id="name" placeholder="收货人姓名" value="" />-->
+                        <textarea name="address" placeholder="路名或街道地址，门牌号 " id="particular" rows="" cols=""></textarea>
+                    </div>
+
+                    <div class="postcode">
+                        <h3 class="style"><b>&nbsp;</b>邮政编码</h3>
+                        <input type="text" class="public" name="postnum" id="postcode" placeholder="6位邮政编码" value="" />
+                    </div>
+                    <div class="shouji">
+                        <h3 class="style"><b>*</b>手机号码 </h3>
+                        <input type="text" class="public" name="cellphone" id="shouji" placeholder="11位手机号码" value="" />
+                    </div>
+                    <div class="btn-group">
+                        <input type="submit"  class="btn" id="btn-bao" value="保存"/>
+                        <a href="javascript:;" class="btn-qu btn">取消</a>
+                        <input type="hidden" name="ader" class="ader" value="">
+                        <input type="hidden" name="uid"  value="{$_SESSION['_uid']}">
+                    </div>
+                </form>
+                <script>
+                    function addform(obj) {
+                        //获取所有数据
+                       var data = $(obj).serialize();
+
+                        //发送ajax
+                        $.post("{:u('addressAjax')}",data,function (res) {
+                            var str ='';
+
+                            if(res.valid==3){
+
+                                layer.msg(res.msg, function(){
+                        //关闭后的操作
+                                });
+                                return false;
+                            }
+
+                            //修改block样式
+                            if(res.valid==1){
+
+                                str +='<div class="consignee-item" ader="'+res.send.ader+'">';
+                                str +='<span class="radio-img "></span>';
+                                str +='<label for="adress1" class="radio">';
+                                str +=' <input type="radio" name="adress" id="adress1"  class="radio-select"/>';
+                                str +='<span class="e-name">'+res.send.clientname+'</span>，';
+                                str +='<span class="city">'+res.send.place+'</span><span class="city-particular">'+res.send.address+'</span>，<span class="codeNumber">'+res.send.cellphone+'</span>';
+                                str +='</label><span class="compile"><a class="copyreader" href="javascript:;">编辑</a></span></div>';
+
+                                $('.appnd').append(str);
+                                //关闭
+                                $('.new-ress,.new').hide();
+                            //	让添加新地址的按钮显示
+                                $('.new-address').show();
+                                //	让第一个第值默认选中
+                                $('.consignee-item').eq(0).find('.radio-img').addClass('pitchOn');
+
+                                layer.alert(res.msg, {icon: 6});
+                        }
+
+
+                        var attr= '';
+                        if(res.valid==2){
+
+                          var ader = parseInt(res.send.ader);
+
+                            attr +='<div class="consignee-item" ader="'+res.send.ader+'">';
+                            attr +='<span class="radio-img "></span>';
+                            attr +='<label for="adress1" class="radio">';
+                            attr +=' <input type="radio" name="adress" id="adress1"  class="radio-select"/>';
+                            attr +='<span class="e-name">'+res.send.clientname+'</span>，';
+                            attr +='<span class="city">'+res.send.place+'</span><span class="city-particular">'+res.send.address+'</span>，<span class="codeNumber">'+res.send.cellphone+'</span>';
+                            attr +='</label><span class="compile"><a class="copyreader" href="javascript:;">编辑</a></span></div>';
+
+                            $('.consignee-item').each(function () {
+                                 if(parseInt($(this).attr('ader'))==ader){
+                                  $(this).html(attr);
+                                 }
+                            })
+
+                            $('.new-ress,.new').hide();
+                            //	让添加新地址的按钮显示
+                            $('.new-address').show();
+                            //	让第一个第值默认选中
+                            $('.consignee-item').eq(0).find('.radio-img').addClass('pitchOn');
+
+                            layer.alert(res.msg, {icon: 6});
+                        }
+
+                        },'json');
+                        return false;
+                    }
+                </script>
+
+
+            </div>
+            <!--添加地址按钮-->
+            <a href="javascript:;" class="new-address"></a>
+
+        </div>
+        <!--地址选择结束-->
+
+        <!--选项开始-->
+        <div class="options">
+            <div class="options-all">
+                <div class="payment options-public">
+                    <h3>支付方式</h3>
+                </div>
+                <div class="consignee-item new-ress1">
+                    <span class="radio-img pitchOn"></span>
+                    <label for="payment" class="radio w122"><input type="radio" name="payment" id="payment" class="radio-select"  value=""/>在线支付</label>
+                </div>
+            </div>
+            <div class="options-all">
+                <div class="distribution options-public">
+                    <h3>配送方式</h3>
+                </div>
+                <div class="consignee-item new-ress1">
+                    <span class="radio-img pitchOn"></span>
+                    <label for="distribution" class="radio w122"><input type="radio" name="distribution" id="distribution" class="radio-select"  value=""/>免费配送</label>
+                </div>
+            </div>
+            <div class="options-all invoice">
+                <div class=" options-public">
+                    <h3>发票信息</h3>
+                </div>
+                <div class="box-all" style="overflow: hidden;">
+                    <div class="consignee-item new-ress1 left">
+                        <span class="radio-img pitchOn"></span>
+                        <label for="invoice" class="radio w122 no"><input type="radio" name="invoice" id="invoice" class="radio-select "  value=""/>不开发票</label>
+                    </div>
+                    <div class="consignee-item new-ress1 left">
+                        <span class="radio-img pitchOn"></span>
+                        <label for="invoice1" class="radio w122 yes"><input type="radio" name="invoice" id="invoice1" class="radio-select "  value=""/>普通发票</label>
+
+                    </div>
+                </div>
+                <div class="con">
+                    <div class="text">发票内容：购买商品明细</div>
+                    <div class="text">发票抬头：请确认单位名称正确，以免因名称错误耽搁您的报销。</div>
+                    <div class="box-all" style="overflow: hidden; margin-top: 10px;">
+                        <a href="javascript:;" class="geren tongyong active">个人</a>
+                        <a href="javascript:;" class="danwei tongyong">单位</a>
+                    </div>
+                    <div class="danweiname" >
+                        <div class="text">单位名称：</div>
+                        <input type="text" name="danweiname" id="danweiname" value="" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--选项结束-->
+        <div class="options-all  goods">
+            <div class="qingdan options-public" style="border: none;">
+                <h3>商品清单</h3>
+            </div>
+            <div class="goodsList">
+                <div class="title">
+                    <ul>
+                        <li class="l1">商品名称</li>
+                        <li class="l2">单价</li>
+                        <li class="l3">数量</li>
+                        <li class="l4">合计</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="goods-cont">
+                <ul>
+                    <foreach name="goodlist['goods']" item="vv" key="kk">
+                    <li style="padding: 13px;">
+                        <div class="gc1">
+                            <img src="__ROOT__/{$vv['options']['pic']}"/>
+                            <span>{$vv['name']}</span>
+                        </div>
+                        <div class="gc2">
+                            ¥{$vv['price']}
+                            <span>.00</span>
+                        </div>
+                        <div class="gc3">
+                            X{$vv['num']}
+                            <span></span>
+                        </div>
+                        <div class="gc4">
+                            ¥{$vv['total']}
+                            <span>.00</span>
+                        </div>
+                    </li>
+                    </foreach>
+                </ul>
+            </div>
+
+            <!--总计-->
+            <div class="zongji">
+                <ul>
+                    <li>
+                        共<span class="color">{$goodlist['total_rows']}</span>件
+                    </li>
+                    <li>
+                        金额合计：<span>{$goodlist['total']}.00</span>元
+                    </li>
+                    <li>
+                                        优惠抵扣：<span>-0.00</span>元
+                    </li>
+                    <li>
+                        配送费：<span>0</span>元
+                    </li>
+                    <li style="margin-top: 15px;">
+                        <h3>应付总金额：<span class="color">{$goodlist['total']}.00</span>元</h3>
+                    </li>
+                </ul>
+            </div>
+
+            <!--确认地址-->
+            <div class="mailTo">
+                <p>寄送至：<span class="m-city">北京 北京市 朝阳区 </span><span class="m-particular">孙河 顺白路12号 后盾it教育</span></p>
+                <p><span class="m-name">贾博雨</span> (收件人) <span class="m-number">15600266727</span> </p>
+            </div>
+            <div class="" style="overflow: hidden;">
+                <a href="javascript:;" class="liji">立即下单</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       $(function () {
+
+           $('.liji').click(function () {
+                //获取地址信息
+               var  ader =  $('.consignee-item .pitchOn').parent('.consignee-item').attr('ader');
+
+                $.post("{:u('orderAjax')}",{ader:ader},function (res) {
+
+
+                    if(res.status){
+
+                        layer.msg(res.info, {
+                            icon: 16
+                            ,shade: 0.01
+                        });
+                        setTimeout(function(){location.href=res.url}, 2000);
+                    }else {
+                        layer.alert(res.info, {
+                            icon: 5,
+                            skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                        })
+
+                    }
+
+
+                },'json');
+           })
+
+       })
+    </script>
+</div>
+
+<!--中间结束-->

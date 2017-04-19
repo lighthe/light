@@ -1,0 +1,45 @@
+<layout name="../../resource/master" />
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">UI kit</a></li>
+    <li><a href="#">Form</a></li>
+    <li class="active">Elements</li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">文章列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">文章列表</header>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>标题</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="oldData" id="d">
+                        <tr>
+                            <td>{$d['aid']}</td>
+                            <td>{$d['title']}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{:site_url('news.addArticle',['aid'=>$d['aid']])}" class="btn btn-info btn-xs">编辑</a>
+                                    <a href="{:site_url('news.del',['aid'=>1])}" class="btn btn-danger btn-xs">删除</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="btn-group">
+    <a href="{:site_url('news.addArticle')}" class="btn btn-default">添加栏目</a>
+</div>

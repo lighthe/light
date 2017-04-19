@@ -1,0 +1,94 @@
+<layout name="../../../Resource/master" />
+<div class="col-lg-12">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            品牌列表
+        </div>
+        <div class="panel-heading">
+            <a  href="{:u('admin/logo/add')}" type="button" class="btn btn-primary">添加品牌</a>
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-striped b-t b-light">
+
+                <thead>
+
+                <tr>
+
+                    <td>品牌id</td>
+
+                    <td>品牌名称</td>
+
+                    <td>品牌Logo</td>
+                    <td>热度</td>
+                    <td>排序</td>
+
+                    <td>是否显示</td>
+
+                    <td>操作</td>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+
+            <volist name="data['pageData']"  id="vo">
+                <tr>
+
+                    <td>{$vo['lid']}</td>
+
+                    <td>{$vo['lname']}</td>
+
+                    <td>
+
+                        <img src="__ROOT__/{$vo['logo']}" width="50px">
+
+                    </td>
+
+                    <td>{$vo['lhot']}</td>
+                    <td>{$vo['lsort']}</td>
+
+
+                    <if condition="$vo['l_show']">
+                    <td style="color: red;">不显示</td>
+                        <else />
+                    <td>显示</td>
+                    </if>
+
+                    <td>
+
+                        <div class="btn-group">
+
+                            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+
+                                <li><a href="{:u('admin/logo/edit',['lid'=>$vo['lid']])}">编辑</a></li>
+
+                                <li class="divider"></li>
+
+                                <li><a href="{:u('admin/logo/del',['lid'=>$vo['lid']])}">删除</a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            </volist>
+                </tbody>
+                {$data['show']}
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</div>

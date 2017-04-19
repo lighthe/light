@@ -1,0 +1,82 @@
+<layout name="../../../Resource/home/home" />
+
+</div>
+
+
+
+<div id="content">
+
+    <div class="list">
+        <div class="main">
+            <h4 class="listoption"><a href="/tpshop/index.php/home/index/index.html">首页</a>&gt;<a href="/tpshop/index.php/home/listPage/listPage/cid/1.html">全部搜索结果</a></h4>
+            <div class="postion">
+
+                <dl>
+                    <dt>排序:</dt>
+                    <dd>
+                        <a href="">默认</a>
+                        <a href="">价格</a>
+                    </dd>
+
+                </dl>
+            </div>
+
+        </div>
+    </div>
+
+
+    <if condition="count($listPageData)">
+
+    <div class="listcontent">
+        <div class="main">
+            <ul>
+
+
+                <foreach name="listPageData" item="vo">
+                    <li>
+                        <div class="listdesc">
+                            <dl class="desc">
+                                <a href="{:u('home/content/contents',['gid'=>$vo['gid']])}" class="pro_list">
+                                    <dt class="pic"><img class="lazy" src="__ROOT__/{$vo['pic']}"  alt="360手机f4标准版移动4G魔力白"></dt>
+                                    <dd class="cont">
+                                        <span class="title">{$vo['gname']}</span>
+                                        <span class="price">{$vo['shopprice']}元</span>
+                                    </dd>
+                                </a>
+                                <dd class="btns" >
+                                    <a href="{:u('home/content/contents',['gid'=>$vo['gid']])}" class="add-cart" ><i></i><em>加入购物车</em></a>
+                                </dd>
+                            </dl>
+                        </div>
+
+                    </li>
+                </foreach>
+
+
+
+            </ul>
+        </div>
+
+        </div>
+
+    <else />
+
+    <dl class="msg" style="margin-left:630px;margin-top: 50px;">
+
+            <dt class="fault-anzai"><img src="__PUBLIC__/home/images/zhao.jpg" alt="">抱歉，没有找到您搜索的相关商品 <a
+                    href="{:u('home/index/index')}" style="color: red">返回首页</a></dt>
+            <dd>
+
+            </dd>
+        </dl>
+
+
+    </if>
+
+</div>
+
+
+
+
+
+

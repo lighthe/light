@@ -1,0 +1,42 @@
+<layout name="../../resource/master"/>
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">UI kit</a></li>
+    <li><a href="#">Form</a></li>
+    <li class="active">Elements</li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">文章管理</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">文章管理</header>
+            <div class="panel-body">
+                <form role="form" action="" method="post">
+                    <div class="form-group">
+                        <label>文章标题</label>
+                        <input type="text" class="form-control" name="title" value="{$field['title']}">
+                    </div>
+                    <div class="form-group">
+                        <label>文章内容</label>
+                        <textarea id="container" style="height:300px;width:100%;" name="content">{$field['content']}</textarea>
+                        <script>
+                            require(['util'], function (util) {
+                                util.ueditor('container', {hash: 2, data: 'hd'}, function (editor) {
+                                    //这是回调函数 editor是百度编辑器实例
+                                });
+                            });
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-default">Submit</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    function controller($scope, $, _) {
+    }
+</script>

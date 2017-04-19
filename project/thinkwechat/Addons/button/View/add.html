@@ -1,0 +1,214 @@
+<layout name="../../resource/master" />
+<style>
+    .mobile {
+        border: 1px solid #cccccc;
+        height: 500px;
+        display: flex;
+    }
+    .mobile dl {
+        padding: 0px;
+        margin: 0px;
+        display: flex;
+        flex-direction: column-reverse;
+        flex: 1;
+    }
+    .mobile dl dt {
+        background: #cccccc;
+        text-align: center;
+        height: 30px;
+        line-height: 2em;
+        border: 1px solid #f3f3f3;
+    }
+    .mobile dl dd {
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile dl dd a {
+        padding: 6px;
+        border: 1px solid #f3f3f3;
+        text-align: center;
+        text-decoration: none;
+    }
+    .topMenu,
+    .subMenu {
+        position: relative;
+    }
+    .topMenu .top,
+    .subMenu .top,
+    .topMenu .sub,
+    .subMenu .sub {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        display: none;
+        cursor: pointer;
+    }
+    .topMenu:hover .top,
+    .subMenu:hover .sub {
+        display: block;
+    }
+</style>
+<form action="" method="POST" class="form-horizontal" role="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="mobile">
+                    <dl ng-repeat="(k,v) in data.button">
+                        <dt ng-bind="v.name"></dt>
+                        <dd>
+                            <a href="" ng-repeat="(m,n) in v.sub_button" ng-bind="n.name"></a>
+                        </dd>
+                    </dl>
+
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">编辑</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">菜单名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="title" value="{$oldData['title']}">
+                            </div>
+                        </div>
+                        <!--一级菜单开始-->
+                        <div class="panel panel-default topMenu" ng-repeat="(k,v) in data.button">
+                            <i class="fa fa-times-circle fa-2x top" ng-click="removeTopMenu(v)"></i>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label">标题</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="v.name">
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-if="!v.sub_button || v.sub_button.length==0">
+                                    <label for="" class="col-sm-2 control-label">类型</label>
+                                    <div class="col-sm-10">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" ng-model="v.type" ng-value="'click'">关键字
+                                            </label>
+                                            <label>
+                                                <input type="radio" ng-model="v.type" ng-value="'view'">url
+                                            </label>
+                                        </div>
+                                        <!--{{v.type}}-->
+                                    </div>
+                                </div>
+                                <!--{{v.sub_button}}-->
+                                <div class="form-group" ng-if="v.type=='click' &&  (!v.sub_button || v.sub_button.length==0)">
+                                    <label for="" class="col-sm-2 control-label">关键字</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="v.key">
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-if="v.type=='view' && (!v.sub_button || v.sub_button.length==0)">
+                                    <label for="" class="col-sm-2 control-label">url</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="v.url">
+                                    </div>
+                                </div>
+                                <!--二级开始-->
+                                <div class="panel panel-default subMenu" ng-repeat="(m,n) in v.sub_button">
+                                    <i class="fa fa-times-circle fa-2x sub" ng-click="removeSubMenu(v,n)"></i>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">标题</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="n.name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">类型</label>
+                                            <div class="col-sm-10">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" ng-model="n.type" ng-value="'click'">关键字
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" ng-model="n.type" ng-value="'view'">url
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-if="n.type=='click'">
+                                            <label for="" class="col-sm-2 control-label">关键字</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="n.key">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" ng-if="n.type=='view'">
+                                            <label for="" class="col-sm-2 control-label">url</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" ng-model="n.url">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--二级结束-->
+                                <button type="button" ng-click="addSubMenu(v)" class="btn btn-info">添加二级菜单</button>
+                            </div>
+                        </div>
+                        <!--一级结束-->
+                        <button type="button" ng-click="addTopMenu()" class="btn btn-success">添加一级菜单</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group">
+        <input type="text" hidden name="content" value="{{data}}">
+        <button type="submit" class="btn btn-success">确定提交</button>
+    </div>
+</form>
+
+
+<script>
+    function controller($scope, $, _) {
+        $scope.data =  <?php echo $oldData['content'] ?>;
+        //添加顶级菜单
+        $scope.addTopMenu = function(){
+            var html = {
+                "type":"",
+                "name":"",
+                "key":""
+            };
+            if($scope.data.button.length==3){
+                alert('一级菜单最多添加三个')
+            }else{
+                $scope.data.button.push(html);
+            }
+        }
+        //添加二级菜单
+        //topMenue【一级】是把二级添加到那个一级菜单去
+        $scope.addSubMenu = function(topMenu){
+            var html = {
+                "type":"",
+                "name":"",
+                "key":""
+            };
+            //如果没有sub_button,先创造出来一个
+            if(!topMenu.sub_button)(topMenu.sub_button=[]);
+            if(topMenu.sub_button.length==5){
+                alert('二级菜单最多添加五个');
+            }else{
+                topMenu.sub_button.push(html);
+            }
+        }
+        //删除一级菜单
+        $scope.removeTopMenu = function(topMenu){
+            //_.without(array, *values)
+            //返回一个删除所有values值后的 array副本
+            $scope.data.button = _.without($scope.data.button,topMenu);
+        }
+        //删除二级菜单
+        //topMenu 以及菜单数组数据
+        //subMenu  topMenu下面的二级菜单的数组数据
+        $scope.removeSubMenu = function(topMenu,subMenu){
+            topMenu.sub_button =_.without(topMenu.sub_button,subMenu);
+        }
+    }
+</script>

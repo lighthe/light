@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9ebc94f3-2fea-464b-b865-d2d79d64e447" name="resume" url="http://c79_hehui.kuaipinwang.com">
+        <fileTransfer host="c79_hehui.kuaipinwang.com" port="21" rootFolder="/wwwroot">
+          <advancedOptions>
+            <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

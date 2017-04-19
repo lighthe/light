@@ -1,0 +1,45 @@
+<layout name="../../../resource/master" />
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">UI kit</a></li>
+    <li><a href="#">Form</a></li>
+    <li class="active">Elements</li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">关键词列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">关键词列表</header>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>关键词</th>
+                        <th>所属模块</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="field" id="vo">
+                        <tr>
+                            <td>{$vo['keyword']}</td>
+                            <td>{$vo['module']}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{:u('set',['kid'=>$vo['kid'],'mo'=>$_GET['mo']])}" class="btn btn-success btn-xs">编辑</a>
+                                    <a href="{:u('del',['kid'=>$vo['kid'],'mo'=>$_GET['mo']])}" class="btn btn-danger btn-xs">删除</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="btn-group">
+    <a href="{:u('set',['mo'=>$_GET['mo']])}" class="btn btn-success">添加关键词</a>
+</div>

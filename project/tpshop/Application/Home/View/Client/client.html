@@ -1,0 +1,133 @@
+<layout name="../../../Resource/home/home" />
+
+
+
+</div>
+<div class="ordercontent main">
+    <div class="orderleft">
+        <div class="ordertitle">
+            <h1>个人中心</h1>
+            <ul>
+                <li><a href="">我的订单<span>&gt;</span></a></li>
+                <li><a href="">个人信息<span>&gt;</span></a></li>
+                <li><a href="">退货记录<span>&gt;</span></a></li>
+                <li><a href="">管理地址<span>&gt;</span></a></li>
+                <li><a href="">站内消息<span>&gt;</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="orderright">
+        <div class="orderlist">
+            <h2>我的订单</h2>
+
+            <div class="carshop">
+                <div class="cartitle">
+                    <div class="carcheck">
+                        <div class="checkbox">
+                            <span class="check" id="allcheck"></span>
+
+                        </div>
+                        全选</div>
+                    <div class="carname">商品名称</div>
+                    <div class="carmoney">单价</div>
+                    <div class="carnum">数量(件)</div>
+                    <div class="carcount">小计</div>
+                    <div class="carhandle">操作</div>
+                </div>
+                <foreach name="data" item="vo">
+                <div class="shopcontent">
+                    <div class="shopcheck"><div class="checkbox">
+                        <span class="check "></span>
+                        <input type="checkbox" name="checkbox" class="checkhide">
+                    </div></div>
+                    <div class="shopname">
+                        <div class="carimg">
+                            <a href=""><img src="__ROOT__/{$vo['pic']}"></a>
+                        </div>
+                        <p>
+                            <a href="#">{$vo['gdname']}</a>
+                            <span>适配机型： 小米手机5</span>
+                        </p>
+                    </div>
+                    <div class="shopmoney"><span>{$vo['danjia']}</span>元</div>
+                    <div class="shopnum">
+                        {$vo['num']}
+
+                    </div>
+                    <div class="shopcount"><span>{$vo['total']}</span>元</div>
+                    <div class="shophandle"><span>x</span></div>
+                </div>
+                </foreach>
+            </div>
+            <div class="jiesuan">
+
+                <div class="gongji">共计<span>4</span>件商品</div>
+                <div class="heji">合计<span>8000元</span></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function setcount(){
+        len=$('.shopcount');
+        var n=0;
+        for (var i = 0; i < len.length; i++) {
+            n += parseInt($(len[i]).text());
+        }
+
+        return {n:n,l:len.length};
+    }
+    $('.heji span').text(setcount().n+'元');
+    $('.gongji span').text(setcount().l);
+    $('.car .carshop .shopcontent .shopnum a.num_r').click(function(){
+        var danjia=parseInt($(this).closest('.shopnum').prev().text());
+        var count=parseInt($(this).closest('.shopnum').next().text());
+
+        var num=$(this).prev().val();
+        if(num>=0){
+            num++;
+            $(this).prev().val(num);
+
+            $(this).closest('.shopnum').next().text(num*danjia+'元');
+            $('.heji span').text(setcount().n+'元');
+
+        }
+        if(num>100){
+            alert('最大100台，再多我就要破产了');
+            $(this).prev().val(100);
+            $(this).closest('.shopnum').next().text(100*danjia+'元');
+        }
+    });
+    $('.car .carshop .shopcontent .shopnum a.num_l').click(function(){
+        var danjia=parseInt($(this).closest('.shopnum').prev().text());
+        var count=parseInt($(this).closest('.shopnum').next().text());
+        var num=$(this).next().val();
+        if(num<=1){
+            alert('小于1咋买啊');
+            $(this).next().val(1);
+        }
+        if(num>1){
+            num--;
+            $(this).next().val(num);
+
+            $(this).closest('.shopnum').next().text(num*danjia+'元');
+            $('.heji span').text(setcount().n+'元');
+        }
+    });
+
+    dis();
+    $('.shophandle span').click(function(){
+        $(this).closest('.shopcontent').remove();
+        $('.heji span').text(setcount().n+'元');
+        $('.gongji span').text(setcount().l);
+        dis()
+    });
+    function dis(){
+        if($('.gongji span').text()<=0){
+            $('.gou input').css({'background':'#ccc'}).attr('disabled','disabled');
+        }
+    }
+</script>

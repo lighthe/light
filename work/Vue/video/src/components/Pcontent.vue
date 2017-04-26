@@ -11,6 +11,7 @@
                     </router-link>
                 <router-link to="/video" class="title">精准投放与精准消除</router-link>
             </li>
+
             <li>
                 <a href="" class="pic">
                     <img src="../assets/images/17.jpg"/>
@@ -19,6 +20,7 @@
                 </a>
                 <a href="" class="title">精准投放与精准消除</a>
             </li>
+
             <li>
                 <a href="" class="pic">
                     <img src="../assets/images/18.jpg"/>
@@ -27,6 +29,7 @@
                 </a>
                 <a href="" class="title">精准投放与精准消除</a>
             </li>
+
             <li>
                 <a href="" class="pic">
                     <img src="../assets/images/19.jpg"/>
@@ -35,6 +38,7 @@
                 </a>
                 <a href="" class="title">精准投放与精准消除</a>
             </li>
+
             <li>
                 <a href="" class="pic">
                     <img src="../assets/images/20.jpg"/>

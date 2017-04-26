@@ -36,6 +36,9 @@
                 msg: 'Welcome to Your Vue.js App'
             }
         },
+        //发送数据到后台
+        //ajax插件
+
         components:{Commend,Hot,Navigate,Slide}
     }
 </script>

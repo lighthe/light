@@ -18,7 +18,7 @@ export default new Router({
       component: Home
     },
       {
-          path: '/Video',
+          path: '/Video/:id',
           name: 'Video',
           component: Video
       },

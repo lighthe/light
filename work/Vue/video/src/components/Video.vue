@@ -43,6 +43,20 @@
 
     export default {
         name: 'Video',
+
+        mounted:function(){
+            this.axios.get('http://c79_hehui.kuaipinwang.com/video/index.php?s=api/lesson/video&id=' + this.$route.params.id)
+                .then((response) => {
+//          console.log(response.data)
+                    if(response.data.valid){
+                        //this指的是下面的data数据，把接受过来的数据赋给data
+                        this.data = response.data.data   ;
+
+                    }else{
+                        alert('请求失败')
+                    }
+                })
+        },
         data () {
             return {
 

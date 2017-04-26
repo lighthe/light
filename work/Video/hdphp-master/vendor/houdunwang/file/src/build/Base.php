@@ -48,6 +48,7 @@ class Base {
 		$files        = $this->format( $fieldName );
 		$uploadedFile = [ ];
 		//验证文件
+
 		if ( ! empty( $files ) ) {
 			foreach ( $files as $v ) {
 				$info          = pathinfo( $v ['name'] );

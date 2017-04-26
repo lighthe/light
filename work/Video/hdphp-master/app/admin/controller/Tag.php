@@ -13,6 +13,7 @@
      }
 
 
+
      public function lists(){
             $model = new Model();
             $data= $model->get();
@@ -23,8 +24,6 @@
      public function post(){
           //判断是否的编辑
             $id    = Request::get( 'id' );
-
-
              // P($id);
             //判断是否有 没有的话 走添加
            $model =  $id ? Model::find($id): new Model();

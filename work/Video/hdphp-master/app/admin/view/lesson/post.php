@@ -32,28 +32,7 @@
                             <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
                         </div>
                     </div>
-                    <script>
-                        //上传图片
-                        function upImage(obj) {
-                            require(['util'], function (util) {
-                                options = {
-                                    multiple: false,//是否允许多图上传
-                                    //data是向后台服务器提交的POST数据
-                                    data:{name:'后盾人',year:2099},
-                                };
-                                util.image(function (images) {          //上传成功的图片，数组类型 
-                                    $("[name='thumb']").val(images[0]);
-                                    $(".img-thumbnail").attr('src', images[0]);
-                                }, options)
-                            });
-                        }
 
-                        //移除图片
-                        function removeImg(obj) {
-                            $(obj).prev('img').attr('src', 'resource/images/nopic.jpg');
-                            $(obj).parent().prev().find('input').val('');
-                        }
-                    </script>
                 </div>
 
                 <div class="form-group">
@@ -98,7 +77,7 @@
                 <button type="button" class="btn btn-info btn-block" @click="add">添加视频</button>
             </div>
         </div>
-<!--      -->
+
         <textarea name="videos" hidden="hidden">@{{videos}}</textarea>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -113,8 +92,7 @@
             el: '#form',
             data: {
                 videos: [
-                    {'title': 'asdsd', 'path': 'ssds'},
-                    {'title': 'asdsd', 'path': 'ssds'}
+
                 ]
             },
             methods:{
@@ -122,11 +100,13 @@
                     this.videos.push({title:'',path:''})
                 },
                 remove:function(k){
+                    //这里是splice被重做过
                     this.videos.splice(k,1);
                 }
             }
         })
     })
+
     //保存表单
     function post(event) {
 
@@ -136,5 +116,27 @@
                 'successUrl': '{{u("lists")}}'
             })
         })
+    }
+</script>
+
+<script>
+    //上传图片
+    function upImage(obj) {
+        require(['util'], function (util) {
+            options = {
+                multiple: false,//是否允许多图上传
+                //data是向后台服务器提交的POST数据
+                data:{name:'后盾人',year:2099},
+            };
+            util.image(function (images) {          //上传成功的图片，数组类型 
+                $("[name='thumb']").val(images[0]);
+                $(".img-thumbnail").attr('src', images[0]);
+            }, options)
+        });
+    }
+    //移除图片
+    function removeImg(obj) {
+        $(obj).prev('img').attr('src', 'resource/images/nopic.jpg');
+        $(obj).parent().prev().find('input').val('');
     }
 </script>

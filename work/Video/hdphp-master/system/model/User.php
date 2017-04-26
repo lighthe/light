@@ -18,7 +18,6 @@ class User extends Model{
     protected $validate = [
         //['字段名','验证方法','提示信息',验证条件,验证时间]
     ];
-
     //自动完成
     protected $auto = [
         //['字段名','处理方法','方法类型',验证条件,验证时机]

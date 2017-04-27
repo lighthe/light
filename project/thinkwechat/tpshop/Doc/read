@@ -1,0 +1,19 @@
+###后台模块
+        登入模块     
+      |--1.修改入口文件
+         |--将define('RUNTIME_PATH','./Runtime/');
+         |--写入口文件.
+      |--2.创建admin模块
+         |--在IndexController的index方法里创建
+      |--3.创建login类
+         |--在logincontroller的index方法里创建
+      |--4.创建公共类BaseConroller
+         |——在__controller里进行登入验证
+       
+       
+       行为扩展
+      |--1.在Application/Common/conf里创建tags行为
+      |--2.在 Application/Common/Behavior里创建了AppBehavior.class.php
+      
+      
+         

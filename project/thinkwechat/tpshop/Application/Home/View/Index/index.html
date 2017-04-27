@@ -1,0 +1,558 @@
+<layout name="../../../Resource/home/home" />
+
+
+
+
+
+
+
+<!--banner开始-->
+<div class="banner">
+    <ul class="pic">
+        <li style="background: url(__ROOT__/Uploads/banner/1.jpg) no-repeat center center;">
+            <a href="{:u('home/listPage/listPage',['cid'=>2])}"></a>
+        </li>
+        <li style="background: url(__ROOT__/Uploads/banner/2.jpg) no-repeat center center;">
+            <a href="{:u('home/listPage/listPage',['cid'=>4])}"></a>
+        </li>
+        <li style="background: url(__ROOT__/Uploads/banner/3.jpg) no-repeat center center;">
+            <a href="{:u('home/listPage/listPage',['cid'=>72])}"></a>
+        </li>
+        <li style="background: url(__ROOT__/Uploads/banner/4.jpg) no-repeat center center;">
+            <a href="{:u('home/listPage/listPage',['cid'=>27])}"></a>
+        </li>
+        <li style="background: url(__ROOT__/Uploads/banner/5.jpg) no-repeat center center;">
+            <a href="{:u('home/listPage/listPage',['cid'=>65])}"></a>
+        </li>
+
+    </ul>
+    <ul class="dot">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <span class="prev"></span><span class="next"></span>
+</div>
+<!--这个div是上面的-->
+</div>
+<!--banner结束-->
+
+
+
+<!--中间开始-->
+<div id="content">
+    <div class="main">
+        <div class="tip">
+            <ul>
+                <foreach name="hot" item="vo">
+                <li style="text-align: center ;">
+                    <a style="color:#666;" href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}"><img width="100%" height="85%" src="__ROOT__/{$vo['pic']}" alt="" />{$vo['gname']}</a>
+                </li>
+                </foreach>
+
+            </ul>
+        </div>
+        <div class="hot" id="hot">
+            <h5 class="hline">
+                <span class="vline"></span>
+                <span class="tiao"></span>
+                <span class="zi">热门活动</span>
+                <span class="tiao"></span>
+                <span class="vline"></span></h5>
+        </div>
+        <ul class="part-container">
+            <li class="ac0">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/1.webp"> </a>
+            </li>
+            <li class="ac1">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/2.webp"> </a>
+            </li>
+            <li class="ac2">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/3.webp"> </a>
+            </li>
+            <li class="ac3">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/4.webp"> </a>
+            </li>
+            <li class="ac4">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/5.webp"> </a>
+            </li>
+            <li class="ac5">
+                <a href="" target="_blank"> <img class="js-lazyload" src="__PUBLIC__/home/images/1.webp"> </a>
+            </li>
+        </ul>
+        <!--楼层一-->
+        <div class="container" id="floor1">
+            <div class="part-title">{$cellphone['cname']}</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+
+                <ul>
+                    <?php $i=0;?>
+
+                    <foreach name="cellphone['_data']" item="vo">
+                        <?php $a++;?>
+                        <?php  if($a<4){ ?>
+                    <li>
+                        <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}" target="_blank">{$vo['cname']}</a>
+                    </li>
+                        <!--如果去掉最后一个-->
+                    <li>|</li>
+
+                        <?php }?>
+                    </foreach>
+
+
+                </ul>
+            </div>
+            <a href="{:u('home/listPage/listPage',['cid'=>1])}" target="_blank" class="indexmore">更多</a>
+        </div>
+
+
+
+
+
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:u('home/listPage/listPage',['cid'=>1])}" target="_blank">
+                    <img src="__PUBLIC__/home/images/flot1.webp">
+                </a>
+                <a class="part-left2" href="{:u('home/listPage/listPage',['cid'=>1])}" target="_blank">
+                    <img src="__PUBLIC__/home/images/shouji.webp">
+                </a>
+            </div>
+            <div class="part-center">
+                <?php $i=0;?>
+
+                <foreach name="cellphone['_data']" item="vo">
+                    <?php $i++;?>
+                    <?php  if($i<7){ ?>
+                <ul>
+<!-手机--->
+                    <li>
+                        <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                            <span class="title">{$vo['gname']}</span>
+                            <span class="info">市场价: {$vo['marketprice']}</span>
+                            <span class="price">商城价:{$vo['price']}</span>
+                            <img width="150px"  src="__ROOT__/{$vo['pic']}" alt="" />
+                        </a>
+                    </li>
+                </ul>
+               <?php }?>
+                </foreach>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <?php $a=0;?>
+
+                        <foreach name="cellphone['_data']" item="vo">
+                            <?php $a++;?>
+                            <?php  if($a<5){ ?>
+                        <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                            <dl>
+                                <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                <dd class="title">{$vo['gname']}</dd>
+                                <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                            </dl>
+                        </a>
+                            <?php }?>
+                        </foreach>
+
+                    </div>
+
+                    <div class="slider-film">
+                        <?php $a=0;?>
+
+                        <foreach name="cellphone['_data']" item="vo">
+                            <?php $b++;?>
+                            <?php  if($b<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+                            <?php }?>
+                        </foreach>
+
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+
+
+<!--手表-->
+
+        <!--楼层二-->
+        <div class="container" id="floor2">
+            <div class="part-title">{$watchs['cname']}</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+
+                    <?php $i=0;?>
+
+                    <foreach name="watchs['_data']" item="vo">
+                        <?php $a++;?>
+                        <?php  if($a<4){ ?>
+                        <li>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}" target="_blank">{$vo['cname']}</a>
+                        </li>
+                        <!--如果去掉最后一个-->
+                        <li>|</li>
+
+                        <?php }?>
+                    </foreach>
+                </ul>
+            </div>
+            <a href="{:u('home/listPage/listPage',['cid'=>2])}" target="_blank" class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:u('home/listPage/listPage',['cid'=>2])}" target="_blank">
+                    <img src="__ROOT__/Uploads/pic/w1.jpg">
+                </a>
+                <a class="part-left2" href="{:u('home/listPage/listPage',['cid'=>2])}" target="_blank">
+                    <img width="240px" src="__ROOT__/Uploads/pic/w2.jpg">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+
+                    <?php $d=0;?>
+                    <!---->
+                    <foreach name="watchs['_data']" item="vo">
+                        <?php $d++;?>
+                        <?php  if($d<7){ ?>
+                    <li>
+                        <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                            <span class="title">{$vo['gname']}</span>
+                            <span class="info">市场价: {$vo['marketprice']}</span>
+                            <span class="price">商城价:{$vo['price']}</span>
+                            <img width="150px"  src="__ROOT__/{$vo['pic']}" alt="" />
+                        </a>
+                    </li>
+                        <?php }?>
+                    </foreach>
+
+
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <!---->
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="watchs['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+                 <!---->
+                    </div>
+                    <div class="slider-film">
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="watchs['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--楼层三-->
+
+        <!--路由器-->
+        <div class="container" id="floor3">
+            <div class="part-title">360手机</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+                    <?php $a=0;?>
+                    <foreach name="rout['_data']" item="vo">
+                        <?php $a++;?>
+                        <?php  if($a<4){ ?>
+                        <li>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}" target="_blank">{$vo['cname']}</a>
+                        </li>
+                        <!--如果去掉最后一个-->
+                        <li>|</li>
+                        <?php }?>
+                    </foreach>
+
+                </ul>
+            </div>
+            <a href="{:u('home/listPage/listPage',['cid'=>3])}"  class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="#" target="_blank">
+                    <img src="__PUBLIC__/home/images/flot1.webp">
+                </a>
+                <a class="part-left2" href="" target="_blank">
+                    <img src="__PUBLIC__/home/images/shouji.webp">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+
+                    <?php $e=0;?>
+                    <!---->
+                    <foreach name="rout['_data']" item="vo">
+                        <?php $e++;?>
+                        <?php  if($e<5){ ?>
+                        <li>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <span class="title">{$vo['gname']}</span>
+                                <span class="info">市场价: {$vo['marketprice']}</span>
+                                <span class="price">商城价:{$vo['price']}</span>
+                                <img width="150px"  src="__ROOT__/{$vo['pic']}" alt="" />
+                            </a>
+                        </li>
+                        <?php }?>
+                    </foreach>
+
+
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <!---->
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="rout['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+                 <!---->
+                    </div>
+                    <div class="slider-film">
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="rout['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+<!---->
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--楼层四-->
+
+        <div class="container" id="floor4">
+            <div class="part-title">{$car['cname']}</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+                    <?php $a=0;?>
+                    <foreach name="car['_data']" item="vo">
+                        <?php $a++;?>
+                        <?php  if($a<4){ ?>
+                        <li>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}" target="_blank">{$vo['cname']}</a>
+                        </li>
+                        <!--如果去掉最后一个-->
+                        <li>|</li>
+                        <?php }?>
+                    </foreach>
+
+                </ul>
+            </div>
+            <a href="{:u('home/listPage/listPage',['cid'=>4])}" target="_blank" class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:u('home/listPage/listPage',['cid'=>49])}" target="_blank">
+                    <img src="__ROOT__/Uploads/pic/z1.jpg">
+                </a>
+                <a class="part-left2" href="{:u('home/listPage/listPage',['cid'=>46])}" target="_blank">
+                    <img src="__ROOT__/Uploads/pic/z2.jpg">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+
+                    <?php $e=0;?>
+                    <!---->
+                    <foreach name="car['_data']" item="vo">
+                        <?php $e++;?>
+                        <?php  if($e<5){ ?>
+                        <li>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <span class="title">{$vo['gname']}</span>
+                                <span class="info">市场价: {$vo['marketprice']}</span>
+                                <span class="price">商城价:{$vo['price']}</span>
+                                <img width="150px"  src="__ROOT__/{$vo['pic']}" alt="" />
+                            </a>
+                        </li>
+                        <?php }?>
+                    </foreach>
+
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="car['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+                        <!---->
+                    </div>
+                    <div class="slider-film">
+
+                        <?php $d=0;?>
+                        <!---->
+                        <foreach name="car['_data']" item="vo">
+                            <?php $d++;?>
+                            <?php  if($d<5){ ?>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$vo['pic']}" > </dt>
+                                    <dd class="title">{$vo['gname']} </dd>
+                                    <dd class="info">市场价: {$vo['marketprice']} </dd>
+                                    <dd class="price"><i class="yen">￥</i>{$vo['price']}</dd>
+                                </dl>
+                            </a>
+
+                            <?php }?>
+                        </foreach>
+                        <!---->
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--新品速递-->
+        <div class="newproduct" id="newproduct">
+            <div class="part-title">新品速递</div>
+            <ul class="newproduct-list">
+                <foreach name="all" item="vo">
+                <li>
+                    <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}" class="new-item">
+                        <dl>
+                            <dt><img class="js-lazyload" src="__ROOT__/{$vo['pic']}"></dt>
+                            <dd class="title">市场价:{$vo['marketprice']} </dd>
+                            <dd class="price"><span><i class="yen">￥</i>{$vo['shopprice']}</span>{:date(' m-d',$vo['time'])}上新</dd>
+                        </dl>
+                    </a>
+                </li>
+                </foreach>
+            </ul>
+            <div class="nomore" style="display: block;">没有更多了</div>
+        </div>
+    </div>
+</div>
+<!--中间结束-->
+
+
+<!--左侧楼层开始-->
+<div class="floor">
+    <ul>
+        <li class="on1">
+            <a href="javascript:;"><span>1F<br />活动</span></a>
+        </li>
+        <li class="on2">
+            <a href="javascript:;"><span>2F<br />活动</span></a>
+        </li>
+        <li class="on3">
+            <a href="javascript:;"><span>3F<br />活动</span></a>
+        </li>
+        <li class="on4">
+            <a href="javascript:;"><span>4F<br />活动</span></a>
+        </li>
+        <li class="on5">
+            <a href="javascript:;"><span>5F<br />活动</span></a>
+        </li>
+        <li class="on6">
+            <a href="javascript:;"><span>6F<br />活动</span></a>
+        </li>
+    </ul>
+
+</div>
+<!--左侧楼层结束-->
+

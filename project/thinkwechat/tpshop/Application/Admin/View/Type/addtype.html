@@ -1,0 +1,53 @@
+<layout name="../../../Resource/master" />
+
+<div class="col-lg-10  col-lg-offset-1 " style="margin-top:30px; ">
+
+
+    <div class="panel panel-default ">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加属性值</h3>
+            </div>
+            <div class="panel-body">
+                <form  action="" method="post" >
+                    <div class="form-group">
+                        <label for="example">属性名称</label>
+                        <input type="text" class="form-control" id="example" name="taname" placeholder="添加属性名称" value="{$attrData['taname']}">
+                    </div>
+                    <div class="form-group">
+
+
+                        <label style="margin-left: 5px" class="radio-inline">
+                            <input type="radio" name="class"  value="0"  <?php if($attrData['class']==0) {?>  checked <?php }?>> 属性
+                        </label>
+
+                        <label style="margin-left: 20px" class="radio-inline">
+                            <input type="radio" name="class"  value="1" <?php if($attrData['class']==1) {?>  checked <?php }?>> 规格
+                        </label>
+
+                    </div>
+                    <div class="form-group">
+                        <span>属性值(多个值用 竖线 , 分隔)</span>
+                        <textarea class="form-control" rows="3" name="tavalue">{$attrData['tavalue']}</textarea>
+                    </div>
+                    <if condition="I('get.tid')">
+                        <div class="form-group">
+
+                            <input type="hidden"  name="tid"  value="<?php echo $_GET['tid'] ?>" >
+
+                        </div>
+                    <else />
+                        <div class="form-group">
+
+                            <input type="hidden"  name="tid"  value="{$attrData['tid']}">
+
+                        </div>
+                    </if>
+                    <button type="submit" class="btn btn-default">提交</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

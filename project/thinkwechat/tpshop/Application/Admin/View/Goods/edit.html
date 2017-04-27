@@ -1,0 +1,386 @@
+<layout name="../../../Resource/master" />
+
+<div class="col-lg-12 ">
+    <ul class="nav nav-tabs" style="margin-top: 10px;">
+        <li role="presentation " ><a href="{:u('admin/goods/index')}">商品列表</a></li>
+        <li role="presentation " class="active"><a href="{:u('admin/goods/add')}">编辑商品</a></li>
+    </ul>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">商品添加</header>
+        <div class="panel-body">
+
+            <form class="form-horizontal" method="post" action="" onsubmit=" return store(this)" >
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">所属分类</label>
+                    <div class="col-sm-6">
+                        <select name="cid" class="form-control m-b">
+                            <option value="0" tid="-1">请选择</option>
+                            <volist name="cateData" id="vo">
+                                <!--这里我们要将被选择的元素的值拿到-->
+                                <option value="{$vo['cid']}" tid="{$vo['tid']}"  <if condition="$oldData['cid']==$vo['cid']">selected</if>>{$vo['_cname']}</option>
+                            </volist>
+                            <!--用ajax抓取option的值-->
+                        </select>
+                    </div>
+                </div>
+                <!--ajax    -->
+                <script>
+
+                    $(function () {
+
+                            var attr = $('#attr').html();
+                             var spec = $('#spec').html();
+                            var oldCid =<?php echo $oldData['cid']?>;
+
+
+                        $('select[name=cid]').change(function () {
+                            //1.抓取attr里tid的值
+                            var tid= $(':selected').attr('tid');
+                            //2.将tid的值写到隐藏域里 这里用来
+                            $('input[name=tid]').val(tid);
+                            //3.判断是否是顶级分类
+                            if(tid==0){
+                                alert('顶级分类不能添加商品');
+                                //为什么这里为0时变会请选择
+                                $(this).val(0);
+                            }
+                            //旧数据
+                           var cid = $(this).val();
+                            if(cid==oldCid){
+                                $('#attr').html(attr);
+                                $('#spec').html(spec);
+                                return false;
+                            }
+                            //1.要发送的地址,数据,回调函数
+                            $.post("{:u('ajaxGetSpec')}",{tid:tid},function (res) {
+                                var attr='';
+                                var spec='';
+
+                                $.each(res,function (k,v) {
+                                    //v里的class为0 是说明是属性
+                                    if(v.class=='0'){
+                                        attr += '<tr><td>'+v.taname+'</td>';
+                                        attr +='<td><select name="attr['+v.taid+']" id="">';
+                                        attr +='<option value="-1">请选择</option>';
+                                        //遍历tavalue里的数据
+                                        $.each(v.tavalue,function (kk,vv) {
+                                            attr +='<option value="'+vv+'">'+vv+'</option>';
+                                        })
+                                        attr +='</select></td></tr>';
+                                    }else {
+                                        //v里是class为1时 说明是规格
+                                        spec +='<tr><td>'+v.taname+'</td>';
+                                        spec +='<td><select name="spec['+v.taid+'][spec][]" id="">';
+                                        spec +='<option value="-1">请选择</option>';
+                                        //遍历tavalue里的数据
+                                        $.each(v.tavalue,function (kk,vv) {
+                                            spec +='<option value="'+vv+'">'+vv+'</option>';
+                                        })
+                                        //附加价格
+                                        spec +='</select></td><td>附加价格</td>';
+                                        spec +='<td><input type="text" name="spec['+v.taid+'][added][]" value=""></td>';
+                                        spec +='<td><button type="button" class="btn btn-success btn-xs addSpec">添加</button>';
+                                        spec +='</td></tr>';
+                                    }
+                                })
+                                $('#attr').html(attr);
+                                $('#spec').html(spec);
+                            },'json');
+                        })
+                    })
+                </script>
+
+
+                <script>
+
+                    $(function () {
+                        $('#spec').delegate('.addSpec','click',function () {
+                            //先复制一分
+                            var tr = $(this).parents('tr').clone();
+                            //将添加按妞换成删除按钮
+                            var del= '<button type="button" class="btn btn-danger btn-xs delSpec">删除</button>';
+                            tr.find('td').last().html(del);
+                            //把复制的一份在tr之后追加
+                            $(this).parents('tr').after(tr);
+                        })
+                        //点击删除
+                        $('#spec').delegate('.delSpec','click',function () {
+                            $(this).parents('tr').remove();
+                        })
+                    })
+                </script>
+
+
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">所属品牌</label>
+                    <div class="col-sm-6">
+                        <select name="lid" class="form-control m-b">
+                            <option value="0">请选择</option>
+                            <volist name="brandData" id="qq">
+                                <option value="{$qq['lid']}"<if condition="$oldData['lid']==$qq['lid']">selected</if>>{$qq['lname']}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品名称</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="gname" class="form-control" value="{$oldData['gname']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品货号</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="gnumber" class="form-control" value="{$oldData['gnumber']}">
+                        <span class="help-block m-b-none">请输入商品货号。。。</span>
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-id-1">单位</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="unit" class="form-control" id="input-id-1" value="{$oldData['unit']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">市场价</label>
+                    <div class="col-sm-6">
+                        <input type="number" name="marketprice" class="form-control" value="{$oldData['marketprice']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商城价</label>
+                    <div class="col-sm-6">
+                        <input type="number"  class="form-control" name="shopprice" placeholder="" value="{$oldData['shopprice']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">点击数</label>
+                    <div class="col-sm-6">
+                        <input type="text"  class="form-control" name="click" placeholder="" value="{$oldData['click']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">库存</label>
+                    <div class="col-sm-6">
+                        <input type="text"  class="form-control" name="total" placeholder="" value="{$oldData['total']}">
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品属性</label>
+                    <div class="col-sm-6">
+                        <table class="table table-hover" id="attr">
+                            <!--我要在这里追加商品属性元素-->
+                            <foreach name="attrData" item="a" key="b" >
+
+                             <tr>
+                            <td>{$a['taname']}</td>
+                            <td>
+                            <select   name="attr[{$a['taid']}]" id="">
+                            <option value="0">请选择</option>
+
+                                <foreach name="a['tavalue']" item="c" key="d" >
+
+                                    <option value="{$c}" <if condition="in_array($c,$hasAttr)">selected</if>>{$c}</option>
+
+                                </foreach>
+                            </select>
+                            </td>
+                            </tr>
+
+                            </foreach>
+                        </table>
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品规格</label>
+                    <div class="col-sm-6">
+                        <table class="table table-hover" id="spec">
+
+                                <foreach name="specData" item="vo">
+                                    <tr>
+                                        <td>{$vo['taname']}</td>
+                                        <td>
+                                            <select name="spec[{$vo['taid']}][spec][]" id="">
+                                                <option value="0">请选择</option>
+                                                <foreach name="vo['tavalue']" item="v">
+                                                    <option <if condition="$vo['gtvalue']==$v">selected</if>  value="{$v}">{$v}</option>
+                                                </foreach>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            附加价格
+                                        </td>
+                                        <td>
+                                            <input type="text" name="spec[{$vo['taid']}][added][]" value="{$vo['added']}">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-xs delSpec">删除</button>
+                                        </td>
+                                    </tr>
+                                    <script>
+                                        $(function(){
+                                            $('#spec').find("tr:contains({$vo['taname']})").eq(0).find("td:last").html('<button type="button" class="btn btn-success btn-xs addSpec">添加</button>');
+                                        })
+                                    </script>
+                                </foreach>
+
+
+                        </table>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">列表图</label>
+
+                    <div class="col-sm-5" id="listPic">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="pic" readonly="" value="{$oldData['pic']}">
+                            <div class="input-group-btn">
+                                <button onclick="upImage(this)" class="btn btn-default" type="button">选择图片</button>
+                            </div>
+                        </div>
+                        <div class="input-group" style="margin-top:5px;">
+                            <img src="__ROOT__/{$oldData['pic']}"  class="img-responsive img-thumbnail" width="150">
+                            <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                        </div>
+                        <script>
+                            //上传图片
+                            function upImage(obj) {
+                                require(['util'], function (util) {
+                                    options = {
+                                        multiple: false,//是否允许多图上传
+                                        //data是向后台服务器提交的POST数据
+                                        data:{name:'后盾人',year:2099},
+                                    };
+                                    util.image(function (images) {
+                                        //上传成功的图片，数组类型 
+                                        $("[name='pic']").val(images[0]);
+                                        $(".img-thumbnail").attr('src','__ROOT__/'+ images[0]);
+                                    }, options)
+                                });
+                            }
+                            //移除图片
+                            function removeImg(obj) {
+                                $(obj).prev('img').attr('src', '__ROOT__/images/nopic.jpg');
+                                $(obj).parent().prev().find('input').val('');
+                            }
+
+
+                        </script>
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品图册</label>
+                    <div class="col-sm-2">
+                        <button onclick="upImage1(this)" class="btn btn-default" type="button">选择图片</button>
+                        <script>
+                            //上传图片
+                            function upImage1(obj) {
+                                require(['util'], function (util) {
+                                    options = {
+                                        //上传多图
+                                        multiple: true,
+                                    };
+                                    util.image(function (images) {
+                                        $(images).each(function(k,v){
+                                            $("<li><img style='width:80px' src='__ROOT__/"+v+"'/><input type='hidden' name='img[]' value='"+v+"'/> <a href='javascript:;' class='delImg'>X</a></li>").appendTo('#box');
+                                        })
+                                    }, options)
+                                });
+                            }
+                        </script>
+                    </div>
+                    <style>
+                        #box li{
+                            float: right;
+                            list-style:none;
+                        }
+
+                    </style>
+                    <div class="col-sm-8" id="box" >
+                        <foreach name="oldData['big']" item="c" key="d" >
+                        <li><img style='width:80px' src='__ROOT__/{$c}'/>
+                            <input type='hidden' name='img[]' value='{$c}'/>
+                            <a href='javascript:;' class='delImg'>X</a>
+                        </li>
+                        </foreach>
+                    </div>
+
+                    <script>
+                        $('#box').delegate('.delImg','click',function () {
+                            $(this).parent().remove();
+                        })
+                    </script>
+
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">商品详情</label>
+                    <div class="col-sm-7">
+                        <textarea id="container1"  name="intro" style="height:300px;width:100%;"  >{$oldData['intro']}</textarea>
+                        <script>
+                            util.ueditor('container1', {hash:2,data:'hd'}, function (editor) {
+                                //这是回调函数 editor是百度编辑器实例
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="line line-dashed line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">售后服务</label>
+                    <div class="col-sm-7">
+                        <textarea id="container2" style="height:300px;width:100%;" name="service">{$oldData['service']}</textarea>
+                        <script>
+                            util.ueditor('container2', {hash:2,data:'hd'}, function (editor) {
+                                //这是回调函数 editor是百度编辑器实例
+                            });
+                        </script>
+                    </div>
+                </div>
+                <input type="hidden" name="tid" value="{$oldData['tid']}">
+                <input type="hidden" name="gid" value="{:I('get.gid')}">
+                <div class="col-sm-4  col-md-offset-3">
+                    <button type="submit" class="btn btn-twitter btn-block m-b-sm " >提交</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>
+<script>
+
+    function controller($scope, $, _){
+
+    }
+
+    //ajax返回信息
+    function store(obj) {
+         var data=$(obj).serialize();
+            $.post("{:u('add')}",data,function (res) {
+                if(res.status){
+
+                    util.message(res.info,"{:u('index')}",'success');
+                }else {
+
+                    util.message(res.info,"back",'error');
+                }
+
+            },'json')
+            return false;
+    }
+</script>

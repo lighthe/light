@@ -1,0 +1,59 @@
+<layout name="../../../Resource/master" />
+
+<div class="col-lg-12 ">
+    <div class="input-group input-group-sm col-lg-7 " style="margin: 0 auto;">
+        <span class="input-group-addon btn btn-success" id="sizing-addon3">搜索</span>
+        <input type="text" class="form-control" placeholder="商品搜索" aria-describedby="sizing-addon3">
+    </div>
+<ul class="nav nav-tabs" style="margin-top: 10px;">
+    <li role="presentation " class="active"><a href="#">商品列表</a></li>
+    <li role="presentation "><a href="{:u('admin/goods/add')}">添加商品</a></li>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>商品ID</th>
+            <th>商品名称</th>
+            <th>价格</th>
+            <th>点击数</th>
+            <th>添加时间</th>
+            <th>操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <foreach name="oldData['pageData']" item="vo" >
+        <tr>
+            <th>{$vo['gid']}</th>
+            <th>{$vo['gname']}</th>
+            <th>
+
+                    <li>市场价：<del>¥{$vo['marketprice']}</del></li>
+                    <li>商城价：<span>¥{$vo['shopprice']}</span></li>
+
+            </th>
+            <th>{$vo['click']}</th>
+            <th>{:date('Y-m-d H:d',$vo['time'])}</th>
+            <th>
+                <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+
+                    <li><a href="{:u('admin/goodslist/index',['gid'=>$vo['gid']])}">货品列表</a></li>
+
+                    <li><a href="{:u('admin/goods/edit',['gid'=>$vo['gid']])}">编辑</a></li>
+
+                    <li class="divider"></li>
+
+                    <li><a href="{:u('admin/goods/del',['gid'=>$vo['gid']])}">删除</a></li>
+
+                </ul>
+            </th>
+        </tr>
+        </foreach>
+        </tbody>
+    </table>
+</ul>
+    {$oldData['show']}
+</div>

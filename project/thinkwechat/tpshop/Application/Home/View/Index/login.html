@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="icon" type="text/css" href="__PUBLIC__/Home/icon.ico"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/index.css" />
+    <script src="__PUBLIC__/Home/js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/Home/js/list.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/Home/layer-v3.0.3/layer/layer.js"></script>
+</head>
+
+<body>
+<div class="regcontent">
+    <div class="layout">
+
+        <form id="login" action="" method="post">
+            <div class="reglogo">
+                <a href=""><img src="__PUBLIC__/Home/images/360logo.png" /></a>
+                <span>帐号登录</span>
+            </div>
+            <div class="reginput">
+
+                <div class="username"><input type="text" name="username" placeholder="请输入用户名" /></div>
+                <div class="password"><input type="password" name="password" placeholder="请输入密码" /></div>
+                <div class="code"><input type="" name="code" id="" value="" class="codeimg" placeholder="请输入验证码" /><img src="{:u('home/login/code')}"  onclick="this.src=this.src+'?'+Math.random()"  /></div>
+
+            </div>
+            <div class="btn"><input type="submit" id="" name="" value="登录" /></div>
+        </form>
+
+        <div class="waring">
+            <span>没有账号，<a href="{:u('home/SignIn/signIn')}">请注册后登录</a></span>
+            <span>忘记密码<a href="">密码找回</a></span>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    $(function () {
+
+        $('form').submit(function () {
+            //序列化获取所有数据
+            var user= $(this).serialize();
+            //ajax发送
+            $.post("{:u('Home/index/homeLoginAjax')}",user,function (res) {
+                if(res.status){
+                    //登入成功提示
+                    layer.alert(res.info, {icon: 6});
+                    setTimeout(function(){location.href=res.url}, 2000);
+                }else {
+                    //错误提示
+                    layer.msg(res.info, function(){
+                //关闭后的操作
+                    });
+                }
+
+            },'json');
+            return false;
+        })
+    })
+
+</script>
+
+</html>

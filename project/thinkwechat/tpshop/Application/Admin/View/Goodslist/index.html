@@ -1,0 +1,84 @@
+<layout name="../../../Resource/master" />
+
+<div class="col-lg-12">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">  货品列表</div>
+        <div class="panel-body">
+            <form action="{:u('admin/goodslist/add')}" method="POST" role="form">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <foreach name="data" item="vo" key="k" >
+                            <th>{$k}</th>
+                        </foreach>
+                        <th>货号</th>
+                        <th>货存</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="listData" item="o" key="v" >
+                        <tr>
+                            <td>{$o['glid']}</td>
+
+                            <foreach name="o['combine']" item="oo" key="vv" >
+                                <td>{$oo}</td>
+                            </foreach>
+
+                            <td>{$o['number']}</td>
+                            <td>{$o['inventory']}</td>
+                            <td>
+                                <div class="btn-group">
+
+                                    <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+
+                                    <ul class="dropdown-menu dropdown-menu-right">
+
+                                        <li><a href="{:u('edit',['gid'=>I('get.gid'),'glid'=>$o['glid']])}">编辑</a></li>
+
+                                        <li class="divider"></li>
+
+                                        <li><a href="{:u('del',['gid'=>I('get.gid'),'glid'=>$o['glid']])}">删除</a></li>
+
+                                    </ul>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </foreach>
+                    <tr>
+                        <td>
+                            添加货品
+                        </td>
+                        <foreach name="data" item="a" key="b" >
+                            <td>
+                                <select name="combine[]"  class="form-control">
+                                    <option value=""> -- Select One -- </option>
+                                    <foreach name="a" item="c" key="d" >
+                                        <option value="{$c['gtid']}"> --{$c['gtvalue']} -- </option>
+                                    </foreach>
+                                </select>
+                            </td>
+                        </foreach>
+                        <td>
+                            <input type="text" name="number" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="inventory"  class="form-control">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <input type="hidden" name="gid" value="{:I('get.gid')}">
+                <button type="submit" class="btn btn-primary">确认添加</button>
+            </form>
+        </div>
+    </div>
+
+</div>

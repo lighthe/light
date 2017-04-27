@@ -1,0 +1,210 @@
+<layout name="../../../Resource/home/home" />
+
+    </div>
+
+    <div class="user-body">
+        <div class="user-container">
+            <div class="user-crumbs m-b-10"><a href="#">首页</a> &gt; 我的订单</div>
+            <div class="clearfix_new">
+                <div class="user-menu m-r-20">
+                    <div class="menu-title">个人中心</div>
+                    <div class="menu-list"><a class="menu-item item-active" href="#"
+                                              data-monitor="user_myorder_myorder">我的订单</a> <a class="menu-item" href="#"
+                                                                                              data-monitor="user_mycoupon_mycoupon">我的优惠券</a>
+                        <a class="menu-item" href="#" data-monitor="user_myfavorite_myfavorite">我的喜欢</a> <a
+                                class="menu-item" href="#" data-monitor="user_book_book">我的预约</a> <a class="menu-item"
+                                                                                                     href="#"
+                                                                                                     data-monitor="user_address_address">收货地址</a>
+                    </div>
+                    <div class="menu-title">售后服务</div>
+                    <div class="menu-list"><a class="menu-item" href="#"
+                                              data-monitor="user_returnlist_returnlist">退货记录</a> <a class="menu-item"
+                                                                                                    href="#"
+                                                                                                    data-monitor="user_barter_barter">换货记录</a>
+                    </div>
+                </div>
+
+
+                <div class="user-main">
+
+
+                    <div class="order-main clearfix_new"><h1 style="border:0"> 我的订单 <a href="#"
+                                                                                       data-monitor="user_myorder_consult"
+                                                                                       onclick="showServiceSelector()"
+                                                                                       class="inline-kefu"></a> <a
+                            href="#" class="phone-order-link"> <img  style="height: 50px;" src="__PUBLIC__/Home/images/go.gif"
+                                                                    alt="查看360手机商城订单"> </a></h1>
+                        <div class="mod-user-list">
+                            <ul id="ul_order_type" class="order_type" style="margin-bottom:20px;padding:0 0 0 10px">
+                                <li data-order_type="-1" _class="cur" data-status="-1" class="enable"><a
+                                        data-monitor="user_myorder_allstatus" class="order_type_title" data-href="#"
+                                        href="#"> 全部订单<span style="display:none" class="order_type_count">1</span></a>
+                                </li>
+                                <li data-order_type="0" _class="disable" data-status="0" class="enable"><a
+                                        data-monitor="user_myorder_waitpay" class="order_type_title" data-href="#"
+                                        href="#"> 待付款<span class="order_type_count"
+                                                           style="color: rgb(255, 120, 0);"></span></a></li>
+                                <li data-order_type="1" _class="disable" data-status="1"><a
+                                        data-monitor="user_myorder_waitgoods" class="order_type_title"
+                                        data-href="/user/myorder/?status=1"> 待发货<span
+                                        class="order_type_count"></span></a></li>
+                                <li data-order_type="2" _class="enable" data-status="3"><a
+                                        data-monitor="user_myorder_getgoods" class="order_type_title"
+                                        data-href="/user/myorder/?status=3"> 已发货<span
+                                        class="order_type_count"></span></a></li>
+                                <li data-order_type="3" _class="enable" data-status="4"><a
+                                        data-monitor="user_myorder_allover" class="order_type_title"
+                                        data-href="/user/myorder/?status=4"> 已完成<span
+                                        class="order_type_count"></span></a></li>
+                                <li data-order_type="4" _class="enable" data-status="2"><a data-monitor=""
+                                                                                           class="order_type_title"
+                                                                                           data-href="/user/myorder/?status=2">
+                                    已关闭<span class="order_type_count"></span></a></li>
+                            </ul>
+                            <!--要遍历的内容-->
+
+                            <table style="" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr class="list-title">
+                                    <th class="list-col1">订单信息</th>
+                                    <th class="list-col2">订单金额</th>
+                                    <th class="list-col3">订单状态</th>
+                                    <th class="list-col4">操作</th>
+                                </tr>
+                                </tbody>
+
+                                <foreach name="list" item="vo" key="k" >
+                                <tbody id="{$k}">
+                                <tr class="list-order-info">
+                                    <td colspan="4"> 订单编号： <b class="m-r-20">{$vo['number']}</b> 提交时间：{:date('Y-m-d H:s:i',$vo['time'])}
+                                    </td>
+                                </tr>
+
+                                <tr class="list-order-detail">
+                                    <td>
+                                        <foreach name="vo['list']" item="xo" key="ko" >
+                                        <div class="item-product clearfix_new"><a
+                                                href=""
+                                                target="_blank" ><img class="item-img" src="__ROOT__/{$xo['pic']}"></a>
+
+                                            <div class="item-txt"><p><a href="#" target="_blank"  style="color: #333;">{$xo['gname']}</a></p>
+
+                                                <p>￥{$xo['shopprice']}.00</p></div>
+                                            <div class="item-count">x{$xo['quantity']}</div>
+                                        </div>
+                                        </foreach>
+                                    </td>
+                                    <td> ￥{$xo['total']}.00 <p class="item-fee">(运费￥0.00)</p></td>
+                                    <td class="hh_status" > {$xo['status']}</td>
+                                    <td>
+                                        <p class="fukuan_info" style="display: none;">前完成付款<img
+                                                src=""></p> <button style="border:none;"
+                                                class="qufukuan_link mod-btn-orange"  href="javascript:;">去付款</button>
+                                        <p><a href="javascript:;" style="color: #333;" class="item-console">详情</a> <span class="p05">|</span> <a
+                                                href="javascript:;"  style="color: #333;"  class="console-cancel">取消订单</a></p></td>
+                                </tr>
+
+                                </tbody>
+                                </foreach>
+
+                            </table>
+                            <script>
+                                $(function () {
+
+
+                                    $('.qufukuan_link ').click(function () {
+
+                                        _this=$(this)
+
+                                       var id= $(this).parents('tbody').attr('id');
+
+
+                                       $.post("{:u('editOrderAjax')}",{id:id},function (res) {
+
+                                           if(res.status){
+
+                                               layer.msg('正在付款中亲！', {
+                                                   icon: 16
+                                                   ,shade: 0.01
+                                               });
+
+                                               _this.parents('tbody').find('.hh_status').html(res.info).css('color','red');
+
+                                               _this.css({'background':'#ccc'}).attr('disabled','disabled');
+                                           }
+
+                                       },'json');
+
+                                    })
+
+
+
+                                    $('.console-cancel').click(function () {
+                                        var id= $(this).parents('tbody').attr('id');
+
+                                        _this=$(this);
+                                        layer.msg('你确定要删除这个订单？', {
+                                            time: 0 //不自动关闭
+                                            ,btn: ['客官确定','客官取消']
+                                            ,yes: function(index){
+                                                layer.close(index);
+                                                $.post("{:u('delOrderAjax')}",{id:id},function (res) {
+
+                                                    if(res.status){
+
+                                                        _this.parents('tbody').remove();
+                                                    }
+
+                                                },'json');
+                                            }
+                                        });
+
+                                    })
+
+                                    $('.item-console').click(function () {
+
+                                        var id= $(this).parents('tbody').attr('id');
+
+                                         $.post("{:u('addressOrderAjax')}",{id:id},function (res) {
+
+                                             layer.open({
+                                                 content: '收货人:'+' '+res.info.clientname+','+' '+'收货地址:'+' '+res.info.place+','+' '+res.info.address+','+' '+'手机号码:'+' '+res.info.cellphone+','+' '+'邮编:'+' '+res.info.postnum,
+                                                 scrollbar: false
+                                             });
+
+                                         },'json');
+                                    })
+
+                                })
+                            </script>
+
+                        </div>
+                    </div>
+
+
+                    <div id="countdown_tip" class="dialog_wrap">
+                        <div class="xiasanjiao">▼</div>
+                        <div class="dialog_content"><p style="width:180px">请您尽快完成付款，否则您提交的订单会自动取消！</p></div>
+                    </div>
+                    <div id="wuliu" class="wuliu_wrap" style="left:100px;top:100px;z-index:100">
+                        <div class="shangsanjiao">▲</div>
+                        <div class="dialog_content"><p
+                                style="border-bottom:1px solid #ececec;color:#666;font-weight:700;height:40px;line-height:40px;width:375px">
+                            <span style="display:inline-block;margin-left:35px">处理时间</span><span
+                                style="display:inline-block;margin-left:150px">订单信息</span></p>
+                            <p class="loading">数据加载中...</p>
+                            <ul class="order_info_ul"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+
+

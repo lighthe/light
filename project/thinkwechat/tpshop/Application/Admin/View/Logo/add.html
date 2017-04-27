@@ -1,0 +1,146 @@
+<layout name="../../../Resource/master" />
+<div class="col-lg-12">
+
+    <div class="panel panel-default">
+
+        <div class=" panel-heading">添加Logo</div>
+        <div class="panel-body">
+            <form class="form-horizontal" id="form" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="col-sm-5"></div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label"></label>
+
+                    <div class="col-sm-5"></div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">品牌名称</label>
+
+                    <div class="col-sm-5">
+
+                        <input type="text" name="lname" class="form-control">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">排序</label>
+
+                    <div class="col-sm-5">
+
+                        <input type="number" name="lsort"  class="form-control">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">品牌Logo</label>
+
+                    <div class="col-sm-5">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="logo" readonly="" value="">
+                            <div class="input-group-btn">
+                                <button onclick="upImage(this)" class="btn btn-default" type="button">选择图片</button>
+                            </div>
+                        </div>
+
+                        <div class="input-group" style="margin-top:5px;">
+                            <img src="__ROOT__/Resource/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                            <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">是否显示</label>
+
+                    <div class="col-sm-10">
+
+                        <label>
+
+                            是：	<input type="radio" value="0" name="l_show" checked="checked"><i></i>
+
+                        </label>
+
+                        <label>
+
+                            否: <input type="radio" value="1" name="l_show"><i></i>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="col-sm-2 control-label">热度</label>
+
+                    <div class="col-sm-3" >
+
+                        <input type="number" name="lhot"  class="form-control">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-4 col-sm-offset-2">
+
+                        <button class="btn btn-primary" id="btn" type="submit">确定添加</button>
+
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    //上传图片
+    function upImage(obj) {
+        require(['util'], function (util) {
+            options = {
+                multiple: false,//是否允许多图上传
+                //data是向后台服务器提交的POST数据
+                data:{name:'后盾人',year:2099},
+            };
+            util.image(function (images) {          //上传成功的图片，数组类型 
+                $("[name='logo']").val(images[0]);
+                $(".img-thumbnail").attr('src', '__ROOT__/'+images[0]);
+            }, options)
+        });
+    }
+
+    //移除图片
+    function removeImg(obj) {
+        $(obj).prev('img').attr('src', 'resource/images/nopic.jpg');
+        $(obj).parent().prev().find('input').val('');
+    }
+</script>

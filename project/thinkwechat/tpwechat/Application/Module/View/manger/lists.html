@@ -1,0 +1,46 @@
+<layout name="../../../resource/master" />
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">UI kit</a></li>
+    <li><a href="#">Form</a></li>
+    <li class="active">Elements</li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">模块列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">模块列表</header>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>模块名称</th>
+                        <th>模块标识</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                <volist name="listData" id="vo">
+                        <tr>
+                            <td>{$vo['name']}</td>
+                            <td>{$vo['title']}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <if condition="!in_array($vo['title'],$has)">
+                                        <a href="{:u('module/manger/install',['title'=>$vo['title']])}" class="btn btn-success btn-xs">安装</a>
+                                        <else />
+                                        <a href="{:u('module/manger/uninstall',['title'=>$vo['title']])}" class="btn btn-danger btn-xs">卸载</a>
+                                    </if>
+                                </div>
+                            </td>
+                        </tr>
+                </volist>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

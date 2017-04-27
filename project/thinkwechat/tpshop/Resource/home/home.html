@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{$headconf['title']}</title>
+    <link rel="icon" type="text/css" href="__PUBLIC__/Home/icon.ico" />
+    <foreach name="headconf['css']" item="xo">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/{$xo}.css" />
+    </foreach>
+    <script src="__PUBLIC__/Home/js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="__PUBLIC__/Home/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/font-awesome-4.7.0/css/font-awesome.css">
+    <foreach name="headconf['js']" item="vo">
+    <script src="__PUBLIC__/Home/js/{$vo}.js" type="text/javascript" charset="utf-8"></script>
+    </foreach>
+    <script src="__PUBLIC__/Home/layer-v3.0.3/layer/layer.js"></script>
+</head>
+
+<body>
+<!--头部开始-->
+<div id="top">
+    <!--头部灰条就开始-->
+    <div class="topbox">
+        <div class="main">
+            <div class="topleft fl">
+                <a href="javascript:;">欢迎来到辉辉商城</a>
+                <a href="{:u('home/index/index')}">首页</a>
+                <a href="#">收藏本站</a>
+                <a href="#">帮助中心</a>
+                <!--<a href="#" class='last'><i></i>手机商城</a>-->
+            </div>
+            <div class="topright fr">
+                <div class="login fl">
+                    <if condition="!$_SESSION['_uid']">
+                    <a href="{:u('home/index/login')}">登录</a>
+                    <a href="{:u('home/signIn/signIn')}">注册</a>
+                    <else />
+                        <a href="javascript:;">{$_SESSION['_username']}</a>
+                        <a class="signOut" href="#">退出登录</a>
+                    </if>
+                </div>
+                <span class="fl">|</span>
+                <div class="fcode fl">
+
+                    <a href="{:u('home/client/index')}">我的订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.signOut').click(function () {
+                var a=1;
+                $.post("{:u('home/SignIn/signOut')}",a,function (res) {
+
+                    if(res.status){
+
+                        layer.msg(res.info, {
+                            icon: 16
+                            ,shade: 0.01
+                        });
+                        setTimeout(function(){location.href=res.url}, 2000);
+                    }
+                },'json');
+            })
+        })
+
+    </script>
+    <!--头部灰条结束-->
+
+    <!--logo区域开始-->
+    <div class="logoRegion">
+        <div class="main">
+            <div class="logo" style="margin-left: 20px;">
+                <a href="" ><img width="150px;" src="__ROOT__/Uploads/pic/logo.jpg"/></a>
+            </div>
+            <div class="seachRegion">
+                <div class="seach fl">
+                    <form action="{:u('home/Search/search')}" method="get">
+                        <input type="text" class="seachtxt fl"  name="search" value="" />
+                        <input type="submit" class="btn" value="" />
+                    </form>
+                    <p class="searchkey">
+                        <a href="">电竞配件低至5折</a>
+                        <a href="">电竞配件低至5折</a>
+                        <a href="">电竞配件低至5折</a>
+                    </p>
+
+                </div>
+
+                <div class="topshopcart fr">
+                    <!--判断是否来自与数据库-->
+                    <if  condition="count($fromData['goods'])">
+
+                        <a href=""  class="header-cart"><i></i>我的购物车(<span class="cart-size" style="color: #E4393C;"><if condition="$fromData['total_rows']">{$fromData['total_rows']}<else />0</if></span>)</a>
+                        <else />
+                        <a href=""  class="header-cart"><i></i>我的购物车(<span class="cart-size" style="color: #E4393C;"><if condition="$cartData['total_rows']">{$cartData['total_rows']}<else />0</if></span>)</a>
+                    </if>
+
+
+                        <!--判断是否有数据-->
+                        <if  condition="count($fromData['goods'])">
+
+                            <!--做数据库的-->
+                            <div class="cart-tips">
+                                <div class="hh_top">最新加入的商品</div>
+                                <!--seesion遍历-->
+                                <foreach name="fromData['goods']" item="yy" key="kk" >
+                                    <!--要遍历的号-->
+                                    <div class="hh_mid"  x="{$yy['options']['caid']}">
+                                        <li class="goods_pic"><img src="__ROOT__/{$yy['options']['pic']}" alt="" style="width: 90% ;height: 90%; margin-top: 4%;margin-left: 4%;border: 1px solid #e3e3e3;"></li>
+                                        <li class="goods_des"><a href="">{$yy['name']}</a></li>
+                                        <li class="goods_mon">
+                                            <div class="goods_crash">￥{$yy['price']}×<span class="hh_goods_num">{$yy['num']}</span></div>
+                                            <div class="goods_remove"><a href="javascript:;">删除</a></div>
+                                            <input type="hidden" value="{$yy['options']['caid']}">
+                                        </li>
+                                        <div class="hh_xiaoji" >
+                                            <li class="hh_look">满赠</li>
+                                            <li class="hh_notice"><span> 已购满99元，您可领赠品</span></li>
+                                            <li class="hh_carsh">小计：￥<span class="hh_goodPrice">{$yy['total']}</span></li>
+                                        </div>
+                                    </div>
+                                </foreach>
+                                <!---->
+                                <div class="hh_but">
+                                    <li class="hh_zongshu">共<span class="hh_goodTotal">{$fromData['total_rows']}</span>件商品</li>
+                                    <li class="hh_zhongjia">共计￥<span class="hh_goodMoney"> {$fromData['total']}</span></li>
+                                    <li class="hh_shopcart"><a href="{:u('home/Cart/index')}">去购物车</a></li>
+                                </div>
+                            </div>
+
+                       <elseif condition="(count($_SESSION['cart']['goods']))"/>
+                            <div class="cart-tips">
+                                <div class="hh_top">最新加入的商品</div>
+                                <!--seesion遍历-->
+                                <foreach name="cartData['goods']" item="yy" key="kk" >
+                                    <div class="hh_mid" x="{$kk}">
+                                        <li class="goods_pic"><img src="__ROOT__/{$yy['options']['pic']}" alt="" style="width: 90% ;height: 90%; margin-top: 4%;margin-left: 4%;border: 1px solid #e3e3e3;"></li>
+                                        <li class="goods_des"><a href="">{$yy['name']}</a></li>
+                                        <li class="goods_mon">
+                                            <div class="goods_crash">￥{$yy['price']}×<span class="hh_goods_num">{$yy['num']}</span></div>
+                                            <div class="goods_remove"><a href="javascript:;">删除</a></div>
+                                            <input type="hidden" value="{$kk}">
+                                        </li>
+                                        <div class="hh_xiaoji" >
+                                            <li class="hh_look">满赠</li>
+                                            <li class="hh_notice"><span> 已购满99元，您可领赠品</span></li>
+                                            <li class="hh_carsh">小计：￥<span class="hh_goodPrice">{$yy['total']}</span></li>
+                                        </div>
+                                    </div>
+                                </foreach>
+
+
+                                <div class="hh_but">
+                                    <li class="hh_zongshu">共<span class="hh_goodTotal">{$cartData['total_rows']}</span>件商品</li>
+                                    <li class="hh_zhongjia">共计￥<span class="hh_goodMoney"> {$cartData['total']}</span></li>
+                                    <li class="hh_shopcart"><a href="{:u('home/Cart/index')}">去购物车</a></li>
+                                </div>
+                            </div>
+                            <else />
+
+                            <div class="cart-tips">
+                                <div class="hh_text"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color: #36aa3f;"></i><span style="margin-left: 10px;">购物车中还没有商品，赶紧选购吧！</span> </div>
+                            </div>
+
+                        </if>
+
+
+                </div>
+                <script>
+                    $(function () {
+                        $('.goods_remove').click(function () {
+                            //将货品id获取到
+                            var order = $(this).parent('.goods_mon').find('input').val();
+                            //将货品数量获取到
+                            var num = parseInt($(this).prev().find('.hh_goods_num').html());
+                            //将货品价格获取到
+                            var  xiaoji   = parseInt($(this).parents('.hh_mid').find('.hh_goodPrice').html());
+                            //将总库存获取到
+                            var total= parseInt($(this).parents('.cart-tips').find('.hh_goodTotal').html());
+                             //将总价格获取到
+                            var  totalPrice = parseInt($(this).parents('.cart-tips').find('.hh_goodMoney').html());
+                            //将this保存住
+                             _this=$(this);
+                            //修改总数
+                            _this.parents('.cart-tips').find('.hh_goodTotal').html(total-num);
+                            //修改总价
+                            _this.parents('.cart-tips').find('.hh_goodMoney').html(totalPrice-xiaoji);
+                            $.post("{:u('home/Cart/cartDelAjax')}",{order:order},function (res) {
+                                         //普通删除数据
+                                          del = res.id; //  获取删除的id
+                                          if(res.valid==1){
+                                              //遍历数据
+                                              $(".shopcontent").each(function () {
+                                                  //获取属性v的值
+                                                  var  attr=  $(this).attr('v');
+                                                  //删除底下列表
+                                                  if(attr==del){
+                                                      $(this).remove();
+                                                  }
+                                              //......
+                                              })
+                                          }
+                                //小logo
+                                var attr='';
+                                var str ='';
+                                if(res.valid==11){
+
+                                    str +='<div class="hh_text"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="color: #36aa3f;"></i>';
+                                    str +='<span style="margin-left: 10px;">购物车中还没有商品，赶紧选购吧！</span></div>';
+                                    //删除购物车
+                                    $('.cart-tips').html(str);
+
+                                    //小logo
+                                    attr +='<div class="cartEmptyx" style="text-align: center;margin-top: 50px;">';
+                                    attr +='<div class="wrapper"><img src="__ROOT__/Resource/images/none.png" >';
+                                    attr +='<span style="color: #363636;">您的购物车居然是空的</span>';
+                                    attr += '<a href="{:u("home/index/index")}" style="color: red;" class="goshopping">去逛逛</a></div></div>';
+                                    //添加小logo
+                                    $('.car').html(attr);
+                                }
+
+                            },'json');
+                            //删除当前货品
+                            _this.parents('.hh_mid').remove();
+                            //修改购物车的总数量
+                            $('.cart-size').html(total-num);
+                            //修改底下的共计数量的值
+                            $('.gongji ').find('span').html(total-num);
+                            //修改底下合计总数
+                            $('.heji').find('span').html(totalPrice-xiaoji);
+                        })
+                    })
+
+                </script>
+
+            </div>
+
+        </div>
+    </div>
+    <!--logo区域结束-->
+    <!--导航开始-->
+    <div class="navbox">
+        <div class="main">
+            <h5 class="fl"><a href=""><i></i>全部智能酷品</a></h5>
+            <ul class="menu fl">
+                <?php $z=0;?>
+                <foreach name="toplist" item="vo" >
+
+                <li class="menulist">
+                    <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}">{$vo['cname']}</a>
+                    <div class="menuHiden" style="overflow: hidden">
+                        <?php $z=0;?>
+                        <ul class="product">
+                            <foreach name="vo['_data']" item="xo" >
+                                <?php $z++;?>
+                                <?php  if($z<5){ ?>
+                            <li>
+                                <a href="{:u('home/listPage/listPage',['cid'=>$xo['cid']])}">
+                                    <img src="__ROOT__/{$xo['pic']}"  alt="" />{$xo['gname']}</a>
+                            </li>
+                                <?php }?>
+                            </foreach>
+                        </ul>
+
+
+
+                    </div>
+                </li>
+
+                </foreach>
+
+            </ul>
+
+        </div>
+        <!--隐藏轮播图-->
+        <if condition="CONTROLLER_NAME =='Index'">
+        <div class="main hiden">
+
+
+            <div class="navHidden">
+
+                <ul class="list2">
+
+                    <foreach name="listData" item="vo">
+                    <li>
+                        <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}"><i></i>{$vo['cname']}</a>
+                        <div class="listhide">
+                            <div class="contentOne">
+                                <foreach name="vo['_data']" item="xo">
+                                <dl>
+                                    <a class="hh_lisname" href="{:u('home/listPage/listPage',['cid'=>$xo['cid']])}"><dt>{$xo['cname']}>></dt></a>
+                                    <foreach name="xo['_data']" item="wo">
+                                    <dd>
+                                        <a  href="{:u('home/listPage/listPage',['cid'=>$wo['cid']])}" class="noo">{$wo['cname']}</a>
+                                    </dd>
+                                    </foreach>
+                                </dl>
+                                </foreach>
+                            </div>
+                        </div>
+                    </li>
+                    </foreach>
+                </ul>
+            </div>
+
+            <div class="topad">
+
+                <?php $a=0;?>
+                <foreach name="cellphone['_data']" item="vo">
+                    <?php $b++;?>
+                    <?php  if($b<3){ ?>
+                <div class="righttopad">
+                    <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}"><img width="100%" src="__ROOT__/{$vo['pic']}" /></a>
+                </div>
+
+                    <?php }?>
+                </foreach>
+            </div>
+        </div>
+
+        </if>
+    </div>
+    <!--导航结束-->
+    <div class="clear"></div>
+
+<!--少一个div-->
+
+{__CONTENT__}
+<!--尾部开始-->
+<div class="mod-footer">
+    <div class="foot-bannerw">
+        <div class="foot-banner clearfix">
+            <div class="banner-item">
+                <a href="#" target="_blank" data-monitor="home_foot_days7"><i class="icon1">7</i>7天无理由退货</a>
+            </div>
+            <div class="banner-item">
+                <a href="#" target="_blank" data-monitor="home_foot_days15"><i class="icon2">15</i>15天免费换货</a>
+            </div>
+            <div class="banner-item"><i class="icon3">包</i>满99元包邮</div>
+            <div class="banner-item">
+                <a href="#" target="_blank" data-monitor="home_foot_moblie"><i class="icon4">服</i>手机特色服务</a>
+            </div>
+        </div>
+    </div>
+    <div class="foot-containerw">
+        <div class="foot-container clearfix">
+            <dl class="foot-con"> <dt data-monitor="home_foot_freshman">帮助中心 </dt>
+                <dd data-monitor="home_help_freshman">
+                    <a target="_blank" href="#" rel="nofollow">用户注册</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">用户登录与密码找回</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">购买指南</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">支付方式</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">配送与说明</a>
+                </dd>
+            </dl>
+            <dl class="foot-con"> <dt data-monitor="home_foot_help">售后服务 </dt>
+                <dd data-monitor="home_help_help">
+                    <a target="_blank" href="#">7 日无理由退货</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">质量问题 15 日内换货</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">保修条款</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">服务流程</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">安迷之家</a>
+                </dd>
+            </dl>
+            <dl class="foot-con"> <dt data-monitor="home_foot_guide">特色服务 </dt>
+                <dd data-monitor="home_help_guide">
+                    <a target="_blank" href="#" rel="nofollow">F码通道</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">免费试用</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">辉辉商城</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">一元夺宝</a>
+                </dd>
+            </dl>
+            <dl class="foot-con"> <dt data-monitor="home_foot_tuiguang">推广合作 </dt>
+                <dd data-monitor="home_help_try">
+                    <a target="_blank" href="#" rel="nofollow">商品入驻</a>
+                </dd>
+                <dd>
+                    <a target="_blank" href="#" rel="nofollow">大客户采购</a>
+                </dd>
+            </dl>
+            <dl class="foot-con"> <dt data-monitor="home_foot_try">关注辉辉商城 </dt>
+                <dd data-monitor="home_help_try">
+                    <a target="_blank" href="#" rel="nofollow">辉辉商城大事记</a>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    <div class="footer-copyright">辉辉商城 ©2016-2018 BYCMS工作室版权所有 京ICP备000001号-43</div>
+</div>
+<!--尾部结束-->
+
+<!--右边底部返回顶部-->
+<div class="slidebar" id="slidebar">
+    <ul>
+        <li class="topback">
+            <a href="javascript:;"></a>
+        </li>
+    </ul>
+</div>
+<!--右边底部返回顶部结束-->
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<layout name="../../../Resource/master" />
+
+<div class="col-lg-12">
+
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+          类型列表
+        </div>
+        <div class="panel-heading">
+            <div class="btn-group">
+                <a  href="{:u('admin/type/add')}" type="button" class="btn btn-success">添加类型</a>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>tid</th>
+                    <th>类型名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+        <volist name="Typedata" id="vo">
+                <tr>
+                    <td>{$vo['tid']}</td>
+
+                    <td>{$vo['tname']}</td>
+
+                    <td>
+
+                        <div class="btn-group">
+
+                            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+
+                                <li><a href="{:u('admin/type/type',['tid'=>$vo['tid']])}">类型属性</a></li>
+
+                                <li class="divider"></li>
+
+                                <li><a href="{:u('admin/type/add',['tid'=>$vo['tid']])}">编辑</a></li>
+
+                                <li class="divider"></li>
+
+                                <li><a href="{:u('admin/type/del',['tid'=>$vo['tid']])}">删除</a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </td>
+                </tr>
+         </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        {$page}
+</div>

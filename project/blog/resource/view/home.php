@@ -24,11 +24,11 @@
     <link rel="stylesheet" href="./resource/home/css/responsive.css">
 
     <!--[if lt IE 8]>
-    <div style=' clear: both; text-align:center; position: relative;'>
-        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-        </a>
-    </div>
+    <!--<div style=' clear: both; text-align:center; position: relative;'>-->
+        <!--<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">-->
+            <!--<img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />-->
+        <!--</a>-->
+    <!--</div>-->
     <![endif]-->
     <!--[if lt IE 9]>
     <script src="./resource/home/js/html5.js"></script>
@@ -84,7 +84,7 @@
     <ul>
         <li><a href="index.php">首页</a></li>
         <foreach from="$cateData" key="$k" value="$v">
-        <li><a href="{{u('home/listpage/index',[cid=>$v['cid']])}}">{{$v['cname']}}</a></li>
+        <li><a href="{{u('home/ListPage/index',[cid=>$v['cid']])}}">{{$v['cname']}}</a></li>
         </foreach>
     </ul>
 </nav>
@@ -117,7 +117,7 @@
                     <div class="heading">分类列表</div>
                     <div class="content" style="text-align: center;">
                             <foreach from="$allCateData" key="$k" value="$v">
-                                <a  class="button" href="{{u('home/listpage/index',[cid=>$v['cid']])}}" style="margin-top: 5px;">{{$v['cname']}}</a>
+                                <a  class="button" href="{{u('home/ListPage/index',[cid=>$v['cid']])}}" style="margin-top: 5px;">{{$v['cname']}}</a>
                             </foreach>
 
                     </div>
@@ -126,9 +126,10 @@
                     <div class="heading">标签云</div>
                         <div class="content" style="text-align: center;">
                             <foreach from="$tigData" key="$k" value="$v">
-                                <a  class="button" href="{{u('home/listpage/index',[tid=>$v['tid']])}}" style="margin-top: 5px;">{{$v['tname']}}({{$v['total']}})</a>
+                                <a  class="button" href="{{u('home/ListPage/index',[tid=>$v['tid']])}}" style="margin-top: 5px;">{{$v['tname']}}({{$v['total']}})</a>
                             </foreach>
                         </div>
+
                 </section>
                 <section>
                     <div class="heading">最新文章</div>
@@ -160,8 +161,9 @@
                     <div class="content" style="text-align: center;">
                         <ul>
                             <foreach from="$allCateData" key="$k" value="$v">
-                                <li style="float: left;padding: 2px; " class="button"><a   href="{{u('home/listpage/index',[cid=>$v['cid']])}}">{{$v['cname']}}</a></li>
+                                <li style="float: left;padding: 2px; " class="button"><a   href="{{u('home/ListPage/index',[cid=>$v['cid']])}}">{{$v['cname']}}</a></li>
                             </foreach>
+
                         </ul>
                     </div>
             </section>
@@ -170,7 +172,7 @@
                     <div class="content">
                         <ul>
                             <foreach from="$tigData" key="$k" value="$v">
-                            <li style="float: left;padding: 3px;" class="button"><a href="{{u('home/listpage/index',[tid=>$v['tid']])}}">{{$v['tname']}}</a></li>
+                            <li style="float: left;padding: 3px;" class="button"><a href="{{u('home/ListPage/index',[tid=>$v['tid']])}}">{{$v['tname']}}</a></li>
                             </foreach>
                         </ul>
                     </div>

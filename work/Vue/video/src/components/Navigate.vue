@@ -2,15 +2,15 @@
     <div>
         <!--底部固定导航-->
         <ul id="bottom">
-            <li class="cur">
+            <li :class="{cur:this.$route.name=='Home'}" >
                 <router-link to="/">
 
                     <i class="iconfont icon-shouyeshouye"></i>
                     <span>首页</span>
                 </router-link>
             </li>
-            <li>
-                <router-link to="/Page">
+            <li :class="{cur:this.$route.name=='Page'}"  >
+                <router-link to="/Page" >
                     <i class="iconfont icon-icon02"></i>
                     <span>视频</span>
                 </router-link>
@@ -24,8 +24,10 @@
 <script>
     export default {
         name: 'Navigate',
+
         data () {
             return {
+
             }
         }
 

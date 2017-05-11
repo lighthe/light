@@ -78,7 +78,7 @@
             <div class="seachRegion">
                 <div class="seach fl">
                     <form action="{:u('home/Search/search')}" method="get">
-                        <input type="text" class="seachtxt fl"  name="search" value="" />
+                        <input type="text" class="seachtxt fl"  name="search" value="{$headconf['search']}" />
                         <input type="submit" class="btn" value="" />
                     </form>
                     <p class="searchkey">
@@ -258,8 +258,8 @@
                                 <?php $z++;?>
                                 <?php  if($z<5){ ?>
                             <li>
-                                <a href="{:u('home/listPage/listPage',['cid'=>$xo['cid']])}">
-                                    <img src="__ROOT__/{$xo['pic']}"  alt="" />{$xo['gname']}</a>
+                            <a href="{:u('home/listPage/listPage',['cid'=>$xo['cid']])}">
+                                    <img src="__ROOT__/{$xo['pic']}"  alt="" />  &nbsp;    &nbsp;    &nbsp;  {$xo['gname']}</a>
                             </li>
                                 <?php }?>
                             </foreach>
@@ -308,15 +308,13 @@
 
             <div class="topad">
 
-                <?php $a=0;?>
-                <foreach name="cellphone['_data']" item="vo">
-                    <?php $b++;?>
-                    <?php  if($b<3){ ?>
+
                 <div class="righttopad">
-                    <a href="{:u('home/listPage/listPage',['cid'=>$vo['cid']])}"><img width="100%" src="__ROOT__/{$vo['pic']}" /></a>
+                    <a href="{:u('home/listPage/listPage',[cid=>13])}"><img width="99%" src="__ROOT__/Uploads/pic/sb11.png" /></a><br>
+                    <a href="{:u('home/listPage/listPage',[cid=>10])}" ><img width="99%" src="__ROOT__/Uploads/pic/sj11.png" /></a>
                 </div>
 
-                    <?php }?>
+
                 </foreach>
             </div>
         </div>

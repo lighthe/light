@@ -82,19 +82,4 @@ class Category extends Model{
       return true;
     }
 
-
-//    public function del($cid){
-//
-//        $data=Db::table('category')->get();
-//
-//         $cids=$this->getSon($data,$cid);
-//
-//         $cids[]=$cid;
-//
-//        foreach ($cids as $k=>$v){
-//
-//            DB::table('category')->delete($v);
-//        }
-//        return true;
-//    }
 }

@@ -22,20 +22,18 @@ class LoginModel extends Model{
         //自动验证
     public function store($data){
 
-
-
             $PersonUser=$data['username'];
-
-
             $PersonCode=$data['code'];
             $Personpass= md5($data['password']);
 
                  $model= m('username');
                 //上次登入的数据
                 $oldata=$model->where("username='{$PersonUser}'")->getField('mid,logintime,loginip');
-
+                //账号密码错误判断
+                if (!$oldata){
+                    return ['valid'=>'error','msg'=>'账户密码不正确！'];die;
+                }
                 $oldata=current($oldata);
-
                 $lastlogin=[
                     'oldtime'=>$oldata['logintime'],
                     'oldip'=>$oldata['loginip']
@@ -49,13 +47,12 @@ class LoginModel extends Model{
              return ['valid'=>'error','msg'=>$this->getError()];
          }
         //验证吗比对
-//         $suJu= $this->check_verify($PersonCode);
-//
-//         if(!$suJu){
-//
-//             return ['valid'=>'error','msg'=>'验证码不正确！'];die;
-//         }
+         $suJu= $this->check_verify($PersonCode);
 
+         if(!$suJu){
+
+             return ['valid'=>'error','msg'=>'验证码不正确！'];die;
+         }
             //数据库比对
           $res= $model->where("username='{$PersonUser}' and password='{$Personpass}'")->find();
 
@@ -70,7 +67,6 @@ class LoginModel extends Model{
                     'logintime'=>time(),
                     'loginip'=>get_client_ip(),
                 ];
-
 
                 //将login的时间和ip存入数据库！
                $model->where("mid={$res['mid']}")->setField($data);

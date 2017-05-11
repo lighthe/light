@@ -16,7 +16,13 @@ class LogoController extends BaseController{
 
     //品牌首页加载
     public function index(){
-        //logo数据
+
+        //配置信息
+        $headconf=[
+            'Elements'=>'品牌管理',
+            'Components'=>'品牌列表'
+        ];
+        $this->assign('headconf',$headconf);
 
 
        //分页数据
@@ -32,6 +38,14 @@ class LogoController extends BaseController{
     //添加
     public function add(){
 
+        //配置信息
+        $headconf=[
+            'Elements'=>'品牌管理',
+            'Components'=>'添加品牌'
+        ];
+        $this->assign('headconf',$headconf);
+
+
         if(IS_POST){
                 $data=I('post.');
                 //logo添加
@@ -42,7 +56,11 @@ class LogoController extends BaseController{
 
     //修改
     public function edit(){
-
+        $headconf=[
+            'Elements'=>'品牌管理',
+            'Components'=>'修改品牌'
+        ];
+        $this->assign('headconf',$headconf);
         $lid = I('get.lid');
 
         //修改

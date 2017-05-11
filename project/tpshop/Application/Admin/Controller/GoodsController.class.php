@@ -21,6 +21,12 @@ class GoodsController extends BaseController{
 
     //首页数据
     public function index(){
+        //配置信息
+        $headconf=[
+            'Elements'=>'商品管理',
+            'Components'=>'商品列表'
+        ];
+        $this->assign('headconf',$headconf);
         //分页数据
         $data=$this->makePage('goods',11,'time',desc);
 
@@ -31,6 +37,12 @@ class GoodsController extends BaseController{
 
     //添加数据
     public function add(){
+        //配置信息
+        $headconf=[
+            'Elements'=>'商品管理',
+            'Components'=>'添加商品'
+        ];
+        $this->assign('headconf',$headconf);
 
             if(IS_POST){
 
@@ -50,7 +62,6 @@ class GoodsController extends BaseController{
         $brandData=$this->db->logoData();
         $this->assign('brandData',$brandData);
         $this->display();
-
     }
 
 
@@ -58,6 +69,12 @@ class GoodsController extends BaseController{
     //编辑商品数据
     public function edit(){
          //获取商品id号
+        //配置信息
+        $headconf=[
+            'Elements'=>'商品管理',
+            'Components'=>'编辑商品'
+        ];
+        $this->assign('headconf',$headconf);
 
         $gid=$_GET['gid'];
 

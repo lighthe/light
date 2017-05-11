@@ -8,7 +8,8 @@ return [
 	| 生成的服务实例会保存的系统的IOC窗口中便于全局调用
 	*/
 	'providers' => [
-	    'system\service\user\UserProvider'
+	    'system\service\user\UserProvider',
+        'system\service\HdForm\HdFormProvider',
     ],
 
 	/*
@@ -20,6 +21,7 @@ return [
 	| 就是因为定义了视图服务的View外观所以我们不用实例化对象就可以使用
 	*/
 	'facades'   => [
-        'User' => 'system\service\user\UserFacade'
+        'User' => 'system\service\user\UserFacade',
+        'HdForm'     => 'system\service\HdForm\HdFormFacade',
 	    ]
 ];

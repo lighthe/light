@@ -51,7 +51,7 @@ class AddressModel extends BaseModel{
 
         //判断
         if ($ader){
-
+//                dd($data);die;
             $data['ader']=$ader;
             //修改
            $this->save($data);

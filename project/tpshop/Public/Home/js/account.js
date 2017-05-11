@@ -93,7 +93,7 @@ $('.btn-qu').click(function(){
         $('.new-address').css('display','none');
         $('#adress3').parents('.consignee-item').css('display','none');
 
-        //.........................自己写的.............///
+
         var postId= $(this).parents('.consignee-item').attr('ader');
 
 
@@ -116,41 +116,6 @@ $('.btn-qu').click(function(){
     })
 
 
-
-//编辑
-// $('.copyreader').click(function(){
-//
-//
-// 	//编辑页
-//     $('.new-ress,.new').show();
-//
-//
-//      //让添加新地址的按钮显示
-//  	$('.new-address').css('display','none');
-//  	$('#adress3').parents('.consignee-item').css('display','none');
-//
-//
-//
-// 	//.........................自己写的.............///
-// 	 var postId= $(this).parents('.consignee-item').attr('ader');
-//
-//      //ajax
-//      $.post(editAjax,{ader:postId},function (res) {
-// 			//收获人
-//          $(' .s-name #name').val(res.clientname);
-// 		//地址
-//          area.selected(res.place[0],res.place[1],res.place[2]);
-//          $('.address-s #particular').val(res.address);
-// 			//手机
-//          $(' .shouji #shouji').val(res.cellphone);
-//          //邮编
-// 		 $('.postcode #postcode').val(res.postnum);
-// 		 //地址编号
-// 		 $('.btn-group .ader').val(res.ader);
-//      },'json');
-//
-//
-// })
 
     /**
 	 * 获得相应的内容

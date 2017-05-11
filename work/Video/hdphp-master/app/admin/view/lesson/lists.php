@@ -23,7 +23,7 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="...">
                                 <a href="{{u('post',['id'=>$d['id']])}}" class="btn btn-default btn-sm">编辑</a>
-                                <a href="" class="btn btn-default btn-sm">删除</a>
+                                <a href="{{u('del',['id'=>$d['id']])}}" class="btn btn-default btn-sm">删除</a>
                             </div>
                         </td>
                     </tr>

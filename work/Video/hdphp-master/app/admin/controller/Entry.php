@@ -23,7 +23,6 @@ class Entry {
     public function login(){
 
         if(IS_POST){
-
              //调用Service里的login
              \User::login(Request::post());
              //成功提示
@@ -31,5 +30,4 @@ class Entry {
         }
         return View();
     }
-
 }

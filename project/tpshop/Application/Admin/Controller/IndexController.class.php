@@ -16,6 +16,11 @@ class IndexController extends BaseController {
 
     //首先加载
     public function index(){
+        $headconf=[
+            'Elements'=>'系统信息',
+            'Components'=>'信息列表'
+        ];
+        $this->assign('headconf',$headconf);
         //用户信息
         $userinfo= m('username')->find(1);
         $this->assign('userifo',$userinfo);

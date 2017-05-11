@@ -1,8 +1,8 @@
 <template>
 
    <div>
-      <Slide :slides="pics"></Slide>
-      <Commend></Commend>
+      <Slide :slides="data"></Slide>
+      <Commend :commend="data"></Commend>
       <Hot></Hot>
       <Navigate></Navigate>
    </div>
@@ -24,20 +24,29 @@
 
     export default {
         name: 'Home',
+        //发送数据到后台
+        mounted:function(){
+            //ajax插件
+            this.axios.get('http://bxu2442260694.my3w.com/hdvideo/index.php?s=admin/JieKou/video&mun=')
+                .then((response) => {
+                 console.log(response.data)
+                    if(response.data.valid){
+                        //this指的是下面的data数据，把接受过来的数据赋给data
+                        this.data = response.data.data  ;
+                    }else{
+                        alert('请求失败')
+                    }
+                })
+        },
+
         data () {
             return {
-                pics:[
-                    {id: 1, pic: './static/images/1.jpg'},
-                    {id: 2, pic: './static/images/2.jpg'},
-                    {id: 3, pic: './static/images/3.jpg'},
-                    {id: 4, pic: './static/images/4.jpg'},
+                data:[
                 ],
 
-                msg: 'Welcome to Your Vue.js App'
             }
         },
-        //发送数据到后台
-        //ajax插件
+
 
         components:{Commend,Hot,Navigate,Slide}
     }

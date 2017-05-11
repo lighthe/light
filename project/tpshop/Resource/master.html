@@ -2,7 +2,7 @@
 <html lang="en" class="app">
 <head>
     <meta charset="utf-8" />
-    <title>Notebook | Web Application</title>
+    <title>{$headconf['Components']}</title>
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="__PUBLIC__/Backstage/css/bootstrap.css" type="text/css" />
@@ -395,9 +395,9 @@
             <section id="content">
                 <section class="vbox">
                     <ul class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fa fa-list-ul"></i> Elements</a></li>
-                        <li class="active">Components</li>
+                        <li><a href="{:u('Admin/index/index')}"><i class="fa fa-home"></i> &nbsp;后台主页</a></li>
+                        <li><a href="#"><i class="fa fa-list-ul"></i>  &nbsp;{$headconf['Elements']}</a></li>
+                        <li class="active">{$headconf['Components']}</li>
                     </ul>
                     {__CONTENT__}
                 </section>

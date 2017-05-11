@@ -13,7 +13,12 @@ class TypeController extends BaseController{
 
 
     public function index(){
-
+        //配置信息
+        $headconf=[
+            'Elements'=>'类型管理',
+            'Components'=>'类型列表'
+        ];
+        $this->assign('headconf',$headconf);
 
             //调用分页方法
          $res=$this->makePage('type',10,'tid');
@@ -30,8 +35,28 @@ class TypeController extends BaseController{
 
 //添加方法
  public function add(){
+     //配置信息
 
         $tid=  I('get.tid');
+
+
+        if (!$tid){
+
+            $headconf=[
+                'Elements'=>'分类管理',
+                'Components'=>'添加类型'
+            ];
+            $this->assign('headconf',$headconf);
+
+        }else{
+
+            $headconf=[
+                'Elements'=>'分类管理',
+                'Components'=>'编辑类型'
+            ];
+            $this->assign('headconf',$headconf);
+        }
+
 
          $data=I('post.');
 
@@ -93,7 +118,12 @@ class TypeController extends BaseController{
 
    //属性类型
     public function type(){
-
+        //配置信息
+        $headconf=[
+            'Elements'=>'分类管理',
+            'Components'=>'类型属性'
+        ];
+        $this->assign('headconf',$headconf);
 
          $tid= I('get.tid');
 
@@ -106,11 +136,32 @@ class TypeController extends BaseController{
     //添加属性
     public function addtype(){
 
+        //配置信息
+
+
+
            $taid= I('get.taid');
 
            $tid=I('get.tid');
 
-         if(IS_POST){
+           if(!$taid){
+               $headconf=[
+                   'Elements'=>'分类管理',
+                   'Components'=>'添加类型属性'
+               ];
+               $this->assign('headconf',$headconf);
+           }else{
+               $headconf=[
+                   'Elements'=>'分类管理',
+                   'Components'=>'编辑类型属性'
+               ];
+               $this->assign('headconf',$headconf);
+           }
+
+
+
+
+        if(IS_POST){
 
              $data=I('post.');
 

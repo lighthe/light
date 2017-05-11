@@ -13,6 +13,11 @@ class GoodslistController extends BaseController{
 
     //货品列表
     public function index(){
+        $headconf=[
+            'Elements'=>'货品管理',
+            'Components'=>'添加货品'
+        ];
+        $this->assign('headconf',$headconf);
             //获取gid的值
             $gid=I('get.gid');
 
@@ -83,7 +88,11 @@ class GoodslistController extends BaseController{
         //编辑
 
         public function edit(){
-
+            $headconf=[
+                'Elements'=>'货品管理',
+                'Components'=>'修改货品'
+            ];
+            $this->assign('headconf',$headconf);
 
 
                 $gid=I('get.gid');

@@ -13,6 +13,10 @@ Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 
+
+import vueTap from 'v-tap';
+Vue.use(vueTap);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

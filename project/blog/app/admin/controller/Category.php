@@ -29,7 +29,6 @@ class Category extends Common{
         if(IS_POST){
 
             if($this->db->store()){
-
                 message('添加顶级分类成功',u('index'),'success');
             }
             message('添加顶级分类失败','back','error');
@@ -89,15 +88,18 @@ class Category extends Common{
 //
 //             message('删除成功',u('index'),'success');
 //         }
-//            p($cid);
+
           $pid=Db::table('category')->where('cid',$cid)->get();
 
-//          p($pid);
+
            $data=$this->db->where('pid',$cid)->update(['pid'=>$pid]);
-//           p($data);
+
+
             $res= \system\model\Category::delete($cid);
+
             p($res);
-//        echo $res;
+    //echo $res;
+
         if($res){
 
             message('删除成功',u('index'),'success');

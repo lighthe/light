@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d8501e3c-0375-4513-bd8b-60c6ade440c4" name="shop" url="http://bxu2442260694.my3w.com">
-        <fileTransfer host="bxu2442260694.my3w.com" port="21" rootFolder="/htdocs">
+        <fileTransfer host="bxu2442260694.my3w.com" port="21" rootFolder="/htdocs/tpshop">
           <advancedOptions>
             <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" passiveMode="true" />
           </advancedOptions>

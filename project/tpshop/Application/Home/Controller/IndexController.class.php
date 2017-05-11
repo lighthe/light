@@ -20,13 +20,13 @@ class IndexController extends HomeController {
 
         $this->assign('headconf',$headconf);
 
+
         //查找category表里的数据
         $data=m('category')->select();
 
         //数据分类
         $res=(new ArrBase())->channelLevel($data,$pid=0,$html='&nbsp',$fieldPri = 'cid', $fieldPid = 'pid');
 
-//        dd($res);
 
         foreach ($res as $k=>$v){
             foreach ($v['_data'] as $kk=>$vv){
@@ -72,9 +72,8 @@ class IndexController extends HomeController {
         }
         $cellphone=  current($cellphone);
         $this->assign('cellphone',$cellphone);
-//..................
+        //...............
 
-            //dd($cellphone);
         //手表
         $watch=[];
         foreach ($arr as $c=>$d){

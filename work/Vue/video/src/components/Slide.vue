@@ -2,7 +2,7 @@
     <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
         <swiper-slide  v-for=" v in slides" :key="v.id" >
-            <img  :src="v.pic" alt="">
+            <router-link :to="{name:'Video',params:{id:v.id,cid:v.cid}}"> <img  :src="'http://bxu2442260694.my3w.com/hdvideo/'+v.pic" alt=""> </router-link>
         </swiper-slide>
 
         <!-- Optional controls -->
@@ -73,12 +73,12 @@
                 return this.$refs.mySwiper.swiper
             }
         },
-//        mounted() {
-//            // you can use current swiper instance object to do something(swiper methods)
-//            // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-//            console.log('this is current swiper instance object', this.swiper)
-//            this.swiper.slideTo(3, 1000, false)
-//        }
+        mounted() {
+            // you can use current swiper instance object to do something(swiper methods)
+            // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+            console.log('this is current swiper instance object', this.swiper)
+            this.swiper.slideTo(3, 1000, false)
+        },
         components: {
             swiper,
             swiperSlide

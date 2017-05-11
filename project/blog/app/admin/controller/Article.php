@@ -8,14 +8,10 @@ class Article extends  Common{
     protected $db;
 
     public function __init(){
-
          $this->db= new \system\model\Article();
-
     }
 
     public function index(){
-
-
       $data = $this->db->getAllData(3,0);
 
       View::with('data',$data);
@@ -38,7 +34,6 @@ class Article extends  Common{
         }
 
         $cateData  = $this->db->getCateData();
-
         View::with('cateData',$cateData);
 
         $tagData = $this->db->getTagData();

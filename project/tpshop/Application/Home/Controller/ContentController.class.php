@@ -14,6 +14,7 @@ class ContentController extends HomeController {
 
     public function contents(){
 
+
         $gid=I('get.gid');
 
 
@@ -31,7 +32,7 @@ class ContentController extends HomeController {
 
 
         $content['big']=explode('|',$content['big']);
-        //dd($content);
+
         $this->assign('content',$content);
 
         //数组归类

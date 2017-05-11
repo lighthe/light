@@ -17,7 +17,6 @@ class LoginController extends Controller {
 
         if(IS_POST){
              $data=I('post.');
-
              $res=(new LoginModel())->store($data);
 
              if($res['valid']=='success'){
@@ -38,7 +37,6 @@ class LoginController extends Controller {
 
     //验证码
     public function code(){
-
         $Verify = new \Think\Verify();
         $Verify->entry();
     }

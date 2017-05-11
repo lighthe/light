@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Pheader></Pheader>
-        <Pcontent></Pcontent>
+        <Pheader :pheader="data"></Pheader>
+        <Pcontent :pcontent="data"></Pcontent>
         <Navigate></Navigate>
     </div>
 
@@ -19,8 +19,10 @@
 
     export default {
         name: 'Page',
+
         data () {
             return {
+                data:[],
             }
         },
         components:{Pheader,Navigate,Pcontent},

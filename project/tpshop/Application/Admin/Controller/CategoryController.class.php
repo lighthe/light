@@ -23,6 +23,12 @@ class CategoryController extends BaseController{
 
     //分类列表数据
     public function index(){
+        //配置信息
+        $headconf=[
+            'Elements'=>'分类管理',
+            'Components'=>'分类列表'
+        ];
+        $this->assign('headconf',$headconf);
 
 
         //数组增强
@@ -35,6 +41,13 @@ class CategoryController extends BaseController{
 
     //添加顶级分类
     public function topCate(){
+
+        //配置信息
+        $headconf=[
+            'Elements'=>'分类管理',
+            'Components'=>'添加顶级分类'
+        ];
+        $this->assign('headconf',$headconf);
 
         if(IS_POST){
 
@@ -49,6 +62,12 @@ class CategoryController extends BaseController{
     //添加子集分类
     public function sonCate(){
 
+        //配置信息
+        $headconf=[
+            'Elements'=>'分类管理',
+            'Components'=>'添加子集分类'
+        ];
+        $this->assign('headconf',$headconf);
         if(IS_POST){
 
             $data=I('post.');
@@ -66,6 +85,12 @@ class CategoryController extends BaseController{
    //编辑信息
     public function editCate(){
 
+        //配置信息
+        $headconf=[
+            'Elements'=>'分类管理',
+            'Components'=>'编辑分类'
+        ];
+        $this->assign('headconf',$headconf);
         $cid=I('get.cid');
 
         if(IS_POST){

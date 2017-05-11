@@ -14,9 +14,11 @@ class Lesson {
 
 
     public function __construct() {
+
         //这个什么意思？
         $d = get_defined_constants( true );
         \User::auth();
+
     }
 
 
@@ -28,24 +30,32 @@ class Lesson {
         return view( 'lists', compact( 'data' ) );
     }
 
+    //删除
+    public function del(){
+        $id = Request::get( 'id' );
+        Model::delete($id);
+        message( '删除成功', u( 'lists' ) );
+    }
+
     //保存数据
     public function post() {
-
+        //修改
         $id    = Request::get( 'id' );
+        //如果数据库里面有
         $model = $id ? Model::find( $id ) : new Model();
 
         if ( IS_POST ) {
 
             $model['title']       = Request::post( 'title' );
+            $model['pic']         =Request::post('thumb');
             $model['des'] =      Request::post( 'des' );
             $insertId             = $model->save();
             $id                   = $id ?: $insertId;
-
             //添加视频标签
-//            dd(Request::post( 'tid' ));
             (new LessonVideo)->addVideo( Request::post( 'tid' ), $id );
             //添加课程视频
             $videos = json_decode( Request::post( 'videos' ), true );
+
             (new Video)->addVideo( $id, $videos );
             message( '保存成功', u( 'lists' ) );
         }
